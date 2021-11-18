@@ -4,14 +4,14 @@ import Forum from './components/forum/Forum'
 import Homepage from './pages/Homepage';
 import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
         <Homepage/>
 
         asdf
-        <Forum/>
+        <Forum daemi = 'sja forum fyrir daemi um props'/>
       </header>
     </div>
   );
