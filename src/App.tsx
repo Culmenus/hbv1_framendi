@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './pages/LoginPage/Login';
 import './App.css';
 import SignUp from './pages/SignupPage/Signup';
+import Forgotpassword from './pages/ForgotPasswordPage/Forgotpassword';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <Route path="/forum/:id" element = {<Forum/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path='/signup' element={<SignUp/>} />
+        <Route path='/forgotpassword' element={<Forgotpassword/>} />
         <Route element = {<NotFound/>}/>
       </Routes>
       {/*<Footer/>*/}
