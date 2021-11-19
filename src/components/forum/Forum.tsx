@@ -8,7 +8,7 @@ interface User {
 
 // importa svona dudda :)
 interface Props {
-  daemi: string;
+  daemi?: string;
   um?: boolean;
   props?: string;
   i?: number;
