@@ -4,7 +4,8 @@ import Homepage from './pages/Homepage/Homepage';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import NotFound from './components/notfound/NotFound';
-import { Switch, Route } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
+
 
 import './App.css';
 
@@ -12,20 +13,19 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
       <Header/>
-      <Switch>
-        <Route exact path="/">
+      <Routes>
+        <Route path="/">
           <Homepage/>
         </Route>
-        <Route exact path="/forum/:id">
+        <Route path="/forum/:id">
           <Forum></Forum>  
         </Route>
         <Route>
           <NotFound/>
         </Route>
-      </Switch>
+      </Routes>
       <Footer/>
     </React.Fragment>
-    
   );
 }
 
