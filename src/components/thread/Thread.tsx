@@ -1,9 +1,16 @@
+import MessageComponent from "../message/Message";
 
-interface Something {
-  importaEhDuddaIStadSomething?: string;
-}
-const Thread: React.FC<Something> = () => {
-  return(<p>I am thread boiii</p>);
+const ThreadComponent: React.FC = () => {
+  return(
+    <>
+      <MessageComponent/>
+      <MessageComponent/>
+      <MessageComponent/>
+      <MessageComponent/>
+      <MessageComponent/>
+      <MessageComponent/>
+    </>
+  );
 }
 
-export default Thread;
+export default ThreadComponent;

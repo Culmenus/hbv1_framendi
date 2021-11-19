@@ -1,8 +1,10 @@
+import React from "react";
+
 const NotFound: React.FC = () => {
   return (
-    <div>
-      404 boiiii
-    </div>
+    <React.Fragment>
+      <p>404 boiiii</p>
+    </React.Fragment>
   );
 }
 

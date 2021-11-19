@@ -1,30 +1,23 @@
 import React from 'react';
 import Thread from '../thread/Thread'
+import { useParams } from 'react-router-dom';
+import ThreadComponent from '../thread/Thread';
 
-// hafa svona dudda i sér skrám
-interface User {
-  blabla: string;
-}
+const ForumComponent: React.FC = () => {
 
-// importa svona dudda :)
-interface Props {
-  daemi?: string;
-  um?: boolean;
-  props?: string;
-  i?: number;
-  fn?: (bob: string) => void;
-  user?: User;
-}
+  const { id } = useParams();
 
-const Forum: React.FC<Props> = () => {
-  //idno something like this? skoðum betur samhengi
+  // fetcha á id með useState væntanlega
+  // fa Threads til baka
+
   return (
-    <div>
-      <Thread/>
-      <Thread/>
-      <Thread/>
-    </div>
+    <>
+      {id}
+      <ThreadComponent/>
+      <ThreadComponent/>
+      <ThreadComponent/>
+    </>
   );
 }
 
-export default Forum;
+export default ForumComponent;

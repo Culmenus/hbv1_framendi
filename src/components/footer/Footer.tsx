@@ -1,9 +1,9 @@
 import React from 'react';
 const Footer: React.FC = () => {
   return (
-    <React.Fragment>
-      <div>yees</div>
-    </React.Fragment>
+    <>
+      <div>I am footer baby</div>
+    </>
   );
 }
 

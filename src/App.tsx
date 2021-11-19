@@ -11,15 +11,16 @@ import './App.css';
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <>
       <Header/>
       <Routes>
         <Route path="/" element = {<Homepage/>}/>
         <Route path="/forum/:id" element = {<Forum/>}/>
+        <Route path="/asdf" element = {<Forum/>}/>
         <Route element = {<NotFound/>}/>
       </Routes>
       <Footer/>
-    </React.Fragment>
+    </>
   );
 }
 
