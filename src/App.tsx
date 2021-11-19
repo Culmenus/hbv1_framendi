@@ -14,15 +14,9 @@ const App: React.FC = () => {
     <React.Fragment>
       <Header/>
       <Routes>
-        <Route path="/">
-          <Homepage/>
-        </Route>
-        <Route path="/forum/:id">
-          <Forum></Forum>  
-        </Route>
-        <Route>
-          <NotFound/>
-        </Route>
+        <Route path="/" element = {<Homepage/>}/>
+        <Route path="/forum/:id" element = {<Forum/>}/>
+        <Route element = {<NotFound/>}/>
       </Routes>
       <Footer/>
     </React.Fragment>
