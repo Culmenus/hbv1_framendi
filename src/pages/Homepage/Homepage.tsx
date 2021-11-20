@@ -1,14 +1,22 @@
 // veit ikki á þetta kannski að vera Index.tsx?
-import React from "react";
-
+import { Container, Grid } from "@mui/material";
+import React, { useState } from "react";
+import { ForumView } from "../../components/forumView/forumView";
+import { mockForums } from "./fakecontent";
 const Homepage: React.FC = () => {
+  const [forums, setForums] = useState(mockForums);
   return (
-    <React.Fragment>
-      I am homepage boiii let's get some forums up in hyah
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload. Factual factual.
-      </p>
-    </React.Fragment>
+    <Container>
+      <Grid container spacing={3}>
+        {forums.map((value) => {
+          return (
+            <Grid item xs={12} md={4} lg={3}>
+              <ForumView forum={value} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Container>
   );
 };
 

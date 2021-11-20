@@ -2,7 +2,7 @@ import { Thread } from './Thread';
 
 export type Forum = {
   id: number;
-  coueseId: string;
+  courseId: string;
   name: string;
   description: string;
   threads: Array<Thread>;
