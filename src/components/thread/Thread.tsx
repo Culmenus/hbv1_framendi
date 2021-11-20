@@ -13,7 +13,6 @@ import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 
-const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 export default function ThreadComponent({ onClose, selectedValue, open }: 
   { onClose: Function, selectedValue: string, open: boolean }) {
