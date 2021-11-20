@@ -6,7 +6,6 @@ type Props = {
 export function ForumView({ forum }: Props) {
   const imgNum = Math.floor(Math.random() * 17) + 1;
   const img = require(`./cards/img-${imgNum}.jpg`);
-  console.log(img);
   return (
     <Link href={`forum/${forum.id}`} underline="hover">
       <Card sx={{ maxWidth: 345 }}>
