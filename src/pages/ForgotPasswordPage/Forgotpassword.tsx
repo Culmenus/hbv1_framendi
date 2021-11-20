@@ -11,10 +11,10 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { darkTheme } from '../PageMisc';
 
-  
+
 
 export default function Login() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +23,6 @@ export default function Login() {
     // eslint-disable-next-line no-console
     console.log({
       email: data.get('email'),
-      password: data.get('password'),
     });
   };
 
@@ -43,7 +42,7 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Forgot password
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -56,37 +55,19 @@ export default function Login() {
               autoComplete="email"
               autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Login
+              Reset Password
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="/forgotpassword" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/login" variant="body2">
+                    Back to login
                 </Link>
               </Grid>
             </Grid>
