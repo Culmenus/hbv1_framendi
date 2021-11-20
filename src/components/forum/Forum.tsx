@@ -17,7 +17,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import ForumIcon from '@mui/icons-material/Forum';
 import { ListItemIcon } from '@mui/material';
+import ThreadComponent from '../thread/Thread';
+
 const Forum: React.FC = () => {
+
+  const [open, setOpen] = React.useState(false);
+  const [selectedValue, setSelectedValue] = React.useState("");
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value: string) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
   const [forum, setForum] = useState<TForum | undefined>(undefined);
   const { id } = useParams();
 
@@ -41,7 +55,9 @@ const Forum: React.FC = () => {
         >
           {forum?.threads.map((thread,i) => {
             return(
-              <List sx={{
+              <List 
+                onClick={handleClickOpen}
+                sx={{
                 width: '100%',
                 maxWidth: 360,
                 borderBottom: 1,
@@ -77,6 +93,11 @@ const Forum: React.FC = () => {
               </List>
             )
           })}
+          <ThreadComponent
+              selectedValue={selectedValue}
+              open={open}
+              onClose={handleClose}
+          />
         </Box>
       </Container>
     </ThemeProvider>

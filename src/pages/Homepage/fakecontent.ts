@@ -1,7 +1,6 @@
 import { Forum } from "../../types/Forum";
 import { Thread } from "../../types/Thread";
 import { LoremIpsum } from "lorem-ipsum";
-import { ThreeSixty } from "@mui/icons-material";
 const makeThread = (title: string, id: number): Thread=> {
     return (
         {
