@@ -5,6 +5,7 @@ import { ForumView } from "../../components/forumView/forumView";
 import { mockForums } from "./fakecontent";
 const Homepage: React.FC = () => {
   const [forums, setForums] = useState(mockForums);
+  console.log(forums)
   return (
     <Container>
       <Grid container spacing={3}>
