@@ -12,9 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { darkTheme } from '../PageMisc';
 
 
-const theme = createTheme();
 
 export default function Login() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
