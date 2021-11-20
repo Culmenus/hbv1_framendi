@@ -9,10 +9,12 @@ import Login from "./pages/LoginPage/Login";
 import "./App.css";
 import SignUp from "./pages/SignupPage/Signup";
 import Forgotpassword from "./pages/ForgotPasswordPage/Forgotpassword";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 const App: React.FC = () => {
   return (
-    <>
+    <Provider store={store}>
       {/*<Header/> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -23,7 +25,7 @@ const App: React.FC = () => {
         <Route element={<NotFound />} />
       </Routes>
       {/*<Footer/>*/}
-    </>
+    </Provider>
   );
 };
 

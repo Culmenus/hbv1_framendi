@@ -1,10 +1,12 @@
 // veit ikki á þetta kannski að vera Index.tsx?
 import { Container, Grid } from "@mui/material";
 import React, { useState } from "react";
+import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
 import { mockForums } from "./fakecontent";
 const Homepage: React.FC = () => {
   const [forums, setForums] = useState(mockForums);
+
   return (
     <Container>
       <Grid container spacing={3}>
