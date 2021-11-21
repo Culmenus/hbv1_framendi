@@ -16,7 +16,8 @@ import { darkTheme } from "../PageMisc";
 import { useSigninMutation } from "../../app/services/backendConnection";
 
 export default function Login() {
-  const [signin, { data, isLoading, isError, isSuccess }] = useSigninMutation();
+  const [signin, { isLoading, isError, isSuccess }] = useSigninMutation();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
