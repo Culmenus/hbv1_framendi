@@ -1,7 +1,7 @@
-import { RootState } from "../store";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Forum } from "../../types/Forum";
 import { User } from "../../types/User";
+import { Thread } from "../../types/Thread";
 type SigninCredentials = {
   username: string;
   password: string;
@@ -11,7 +11,7 @@ export const backendApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:8080",
     prepareHeaders: async (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
+      const token = localStorage.getItem("appToken");
       if (token !== null) {
         console.log(token);
         headers.set("Authorization", `Bearer ${token}`);
@@ -27,12 +27,15 @@ export const backendApi = createApi({
         method: "POST",
       }),
       transformResponse: (response: { user: User; token: string }) => {
-        console.log(response);
+        localStorage.setItem("appToken", response.token);
         return response;
       },
     }),
     getAllForums: builder.query<Forum[], void>({
-      query: () => "/forums",
+      query: () => "/api/forum",
+    }),
+    getThread: builder.query<Thread, { id: string }>({
+      query: ({ id }) => `/thread/${id}`,
     }),
   }),
 });
