@@ -18,19 +18,26 @@ import Box from '@mui/material/Box';
 import ForumIcon from '@mui/icons-material/Forum';
 import { ListItemIcon } from '@mui/material';
 import ThreadComponent from '../thread/Thread';
+import {User } from '../../types/User';
+import {Role } from '../../types/Role';
+import {Thread as TThread} from '../../types/Thread';
 
+const tempUser: User = {
+  id: 1,
+  username: 'Nati',
+  password: 'ermagerd',
+  email: 'nati@nati.is',
+  favouriteForums: [],
+  userRole: Role.User,
+}
 const Forum: React.FC = () => {
-
+  const [user, setUser] = useState()
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("");
+  const [selectedThread, setSelectedThread] = useState<TThread | null>(null);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (value: string) => {
+  const handleClose = () => {
     setOpen(false);
-    setSelectedValue(value);
   };
   const [forum, setForum] = useState<TForum | undefined>(undefined);
   const { id } = useParams();
@@ -55,8 +62,14 @@ const Forum: React.FC = () => {
         >
           {forum?.threads.map((thread,i) => {
             return(
-              <List 
-                onClick={handleClickOpen}
+              <List
+                key={i}
+                onClick={
+                  () => {
+                    setOpen(true);
+                    setSelectedThread(thread);
+                  }
+                }
                 sx={{
                 width: '100%',
                 maxWidth: 360,
@@ -66,14 +79,9 @@ const Forum: React.FC = () => {
                 cursor: 'pointer',}}>
                   {/*TODO: Pop up á thread component? eða senda á '/threads/id' ? */}
                 <ListItem alignItems="center">
-                  <ListItemIcon>
-                    <ForumIcon sx={
-                      {
-                        color: 'black',
-                        fontSize: 30,
-                      }
-                    } />
-                  </ListItemIcon>
+                  <ListItemAvatar>
+                    <Avatar>{tempUser.username[0]}</Avatar>
+                  </ListItemAvatar>
                   <ListItemText
                     primary={thread.title}
                     secondary={
@@ -94,9 +102,10 @@ const Forum: React.FC = () => {
             )
           })}
           <ThreadComponent
-              selectedValue={selectedValue}
-              open={open}
-              onClose={handleClose}
+            selectedValue={selectedValue}
+            open={open}
+            onClose={handleClose}
+            thread={selectedThread}
           />
         </Box>
       </Container>
