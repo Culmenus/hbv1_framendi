@@ -11,21 +11,29 @@ import SignUp from "./pages/SignupPage/Signup";
 import Forgotpassword from "./pages/ForgotPasswordPage/Forgotpassword";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { ThemeProvider } from "@mui/system";
+import { darkTheme } from "./pages/PageMisc";
+import { Container, CssBaseline } from "@mui/material";
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      {/*<Header/> */}
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/forums/:id" element={<Forum />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/forgotpassword" element={<Forgotpassword />} />
-        <Route element={<NotFound />} />
-      </Routes>
-      {/*<Footer/>*/}
-    </Provider>
+    <ThemeProvider theme={darkTheme}>
+      <Provider store={store}>
+        <Container component="main">
+          <CssBaseline />
+          {/*<Header/> */}
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/forums/:id" element={<Forum />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgotpassword" element={<Forgotpassword />} />
+            <Route element={<NotFound />} />
+          </Routes>
+          {/*<Footer/>*/}
+        </Container>
+      </Provider>
+    </ThemeProvider>
   );
 };
 

@@ -1,8 +1,9 @@
 // veit ikki á þetta kannski að vera Index.tsx?
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, ThemeProvider } from "@mui/material";
 import React, { useState } from "react";
 import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
+import { darkTheme } from "../PageMisc";
 import { mockForums } from "./fakecontent";
 const Homepage: React.FC = () => {
   const [forums, setForums] = useState(mockForums);
