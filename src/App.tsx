@@ -14,6 +14,7 @@ import { store } from "./app/store";
 import { ThemeProvider } from "@mui/system";
 import { darkTheme } from "./pages/PageMisc";
 import { Container, CssBaseline } from "@mui/material";
+import { TestPage } from "./pages/TestPage/TestPage";
 
 const App: React.FC = () => {
   return (
@@ -24,7 +25,7 @@ const App: React.FC = () => {
           {/*<Header/> */}
           <Routes>
             <Route path="/" element={<Homepage />} />
-            <Route path="/forums/:id" element={<Forum />} />
+            <Route path="/forums/:id" element={<TestPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgotpassword" element={<Forgotpassword />} />
