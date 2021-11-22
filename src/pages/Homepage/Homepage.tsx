@@ -6,15 +6,16 @@ import { ForumView } from "../../components/forumView/forumView";
 import { mockForums } from "./fakecontent";
 const Homepage: React.FC = () => {
   const [forums, setForums] = useState(mockForums);
-  const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
-  //TODO loading
-  if (!data || isLoading) {
-    return <p>loading!</p>;
-  }
-  //TODO login again? or simply error
-  if (!isSuccess) {
-    return <p>log in?</p>;
-  }
+  //const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
+  ////TODO loading
+  //if (!data || isLoading) {
+  //  return <p>loading!</p>;
+  //}
+  ////TODO login again? or simply error
+  //if (!isSuccess) {
+  //  return <p>log in?</p>;
+  //}
+  const [data, setData] = useState(mockForums);
   return (
     <Container>
       <Grid container spacing={3}>

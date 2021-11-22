@@ -12,30 +12,52 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
+import {Chat} from './chat';
+import {Thread as TThread} from '../../types/Thread';
+import { useState } from "react";
+import { makeStyles } from "@material-ui/styles";
+import { createStyles } from "@mui/material";
 
+const useStyles = makeStyles(() => ({
+  dialog: {
+    width: "48%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+   },
+}));
 export default function ThreadComponent({
   onClose,
   selectedValue,
   open,
+  thread,
 }: {
   onClose: Function;
   selectedValue: string;
   open: boolean;
+  thread: TThread | null,
 }) {
+  const classes = useStyles();
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value: string) => {
-    onClose(value);
-  };
 
-  return (
-    <Dialog onClose={handleClose} open={open}>
-      <DialogTitle>Temporary shit</DialogTitle>
-      {/*TODO: setija inn chat UI?*/}
-    </Dialog>
-  );
+  if(thread)
+    return (
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        fullWidth = {true}
+        maxWidth={false}
+        classes={{ paper: classes.dialog}}
+         >
+       {/* display header */}
+        <Chat/>
+      </Dialog>
+    );
+  else
+      return(<></>)
 }
 
 ThreadComponent.propTypes = {
