@@ -14,19 +14,26 @@ import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme } from "../PageMisc";
 import { useSigninMutation } from "../../app/services/backendConnection";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [signin, { isLoading, isError, isSuccess }] = useSigninMutation();
-
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
     signin({
       username: data.get("email")?.toString() || "",
       password: data.get("password")?.toString() || "",
     });
   };
+  const wasSuccess = false;
+  React.useEffect(() => {
+    if (isSuccess && !wasSuccess) {
+      console.log("yay");
+      navigate("/");
+    }
+  }, [isSuccess]);
   return (
     <ThemeProvider theme={darkTheme}>
       <Container component="main" maxWidth="xs">
