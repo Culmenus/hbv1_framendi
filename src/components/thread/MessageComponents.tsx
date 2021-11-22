@@ -115,7 +115,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-//avatarが左にあるメッセージ（他人）
 export const MessageLeft = ({message,timestamp, photoURL, displayName,avatarDisp}: {
     message: string,
     timestamp: string,
@@ -146,7 +145,7 @@ export const MessageLeft = ({message,timestamp, photoURL, displayName,avatarDisp
     </>
   );
 };
-//avatarが右にあるメッセージ（自分）
+
 export const MessageRight = ({message,timestamp, photoURL, displayName,avatarDisp}: {
     message: string,
     timestamp: string,

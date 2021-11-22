@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { TextInput } from "./TextInput";
-import { MessageLeft, MessageRight } from "./Message";
+import { MessageLeft, MessageRight } from "./MessageComponents";
 import { LoremIpsum } from "lorem-ipsum";
 
 const useStyles = makeStyles((theme: Theme) =>
