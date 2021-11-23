@@ -28,12 +28,14 @@ const Forum = ({isDarkTheme, user}: {isDarkTheme: boolean, user: User}) => {
   const [bgColor, setBgColor] = useState<string>("#1F1F1F");
   const [theme, setTheme] = useState<Theme>(darkTheme);
 
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+
+
+  //const Item = styled(Paper)(({ theme }) => ({
+  //  ...theme.typography.body2,
+  //  padding: theme.spacing(1),
+  //  textAlign: 'center',
+  //  color: theme.palette.text.secondary,
+  //}));
 
   const [forum, setForum] = useState<TForum | undefined>(undefined);
   const { id } = useParams();
