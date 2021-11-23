@@ -19,28 +19,46 @@ import NavBar from "./components/NavBar/NavBar";
 
 const tempUser: User = {
   id: 1,
-  username: 'Nati',
-  password: 'ermagerd',
-  email: 'nati@nati.is',
+  username: "Nati",
+  password: "ermagerd",
+  email: "nati@nati.is",
   favouriteForums: [],
   userRole: Role.User,
-}
+};
 
-
-const App= () => {
+const App = () => {
   const [isDarkMode, setDarkMode] = useState<boolean>(true);
-  const NavigationBar = ( {href}: {href: string}) => {
-    return(<NavBar href={href} setDarkMode={setDarkMode} />)
-  }
-  
+  const NavigationBar = ({ href }: { href: string }) => {
+    return <NavBar href={href} setDarkMode={setDarkMode} />;
+  };
+
   return (
     <Provider store={store}>
       {/*<Header/> */}
       <Routes>
-        <Route path="/" element={<Homepage forums={mockForums} NavBar={<NavigationBar href={"Home"} />} />} />
-        <Route path="/forums/:id" element={<Forum isDarkTheme={true} user={tempUser}/>} />
+        <Route
+          path="/"
+          element={
+            <Homepage
+              forums={mockForums}
+              NavBar={<NavigationBar href={"Home"} />}
+            />
+          }
+        />
+        <Route
+          path="/forums/:id"
+          element={<Forum isDarkTheme={true} user={tempUser} />}
+        />
         <Route path="/login" element={<Login />} />
-        <Route path = "/myforums" element={<FavoriteForums forums={tempUser.favouriteForums} NavBar={<NavigationBar href={"My forums"} />}/>} />
+        <Route
+          path="/myforums"
+          element={
+            <FavoriteForums
+              forums={tempUser.favouriteForums}
+              NavBar={<NavigationBar href={"My forums"} />}
+            />
+          }
+        />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />
         <Route element={<NotFound />} />
