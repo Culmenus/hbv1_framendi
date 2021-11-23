@@ -60,12 +60,12 @@ export default function NavBar({href = "home", setDarkMode}: {href: string,setDa
     }
     return(
         <AppBar 
-              position="sticky"
+              position="relative"
               elevation={0}
               sx= {{
-                height: '100vh',
                 backgroundColor: 'purple',
                 display: 'flex',
+                flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
@@ -73,6 +73,8 @@ export default function NavBar({href = "home", setDarkMode}: {href: string,setDa
               <ThemeToggleButton setDarkMode={setDarkMode}/>
               <Box
                 flex={2}
+                display='flex'
+                flexDirection='row'
               >
                 {Object.entries(toolBars).map(([name,url]) => {
                     return (

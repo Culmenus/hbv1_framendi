@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
 import { Message } from "../../types/Message";
+import { FakeMessages } from "../../pages/HomePage/fakecontent";
 
 const useStyles = makeStyles(() => ({
   dialog: {
@@ -34,11 +35,16 @@ export default function ThreadComponent({
   thread: TThread | null;
 }) {
   const classes = useStyles();
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [messages, setMessages] = useState<Array<Message>>(FakeMessages);
   const [value, setValue] = useState<string>("");
+<<<<<<< HEAD
   console.log(thread);
   return (
     <Box
+=======
+    return (
+      <Box
+>>>>>>> 228e57c3f8c9268d1ad6badf75108dc5792fd869
       display="flex"
       alignItems="center"
       flexDirection="column"
@@ -57,7 +63,7 @@ export default function ThreadComponent({
         }}
       >
         <List style={{ flex: 1, alignContent: "flex-end" }}>
-          {messages.map((value) => {
+          {messages.map((value: Message) => {
             return <MessageComponent msg={value} />;
           })}
         </List>
