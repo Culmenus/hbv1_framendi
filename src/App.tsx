@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={darkTheme}>
       <Provider store={store}>
-        <Container component="main">
+        <Container component="main" style={{ height: "90vh" }}>
           <CssBaseline />
           {/*<Header/> */}
           <Routes>

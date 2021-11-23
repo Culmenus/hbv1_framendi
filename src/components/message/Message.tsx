@@ -1,18 +1,22 @@
-import { Message } from '../../types/Message';
+import { Box, Container, Typography } from "@mui/material";
+import { Message } from "../../types/Message";
 
-const MessageComponent: React.FC = () => { 
+type Props = {
+  msg: Message;
+};
+export function MessageComponent({
+  msg: { sentBy, message, createdAt },
+}: Props) {
+  const myID = 1;
 
-  let dude: Message = {
-    id: 1,
-    message: "asdf",
-    isEdited: true,
-  }
   return (
-    <>
-      {dude.id}
-      {dude.message}
-      {dude.isEdited+'\n'}
-    </>
+    <Box justifyContent={sentBy?.id === myID ? "flex-end" : "flex-start"}>
+      <Typography>{sentBy?.username || "Óþekktur notandi"}</Typography>
+      <Typography style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}>
+        {message}
+      </Typography>
+      <Typography>{createdAt}</Typography>
+    </Box>
   );
 }
 
