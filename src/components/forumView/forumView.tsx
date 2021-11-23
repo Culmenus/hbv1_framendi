@@ -20,7 +20,14 @@ export function ForumView({ forum }: Props) {
             {forum.name}
           </Typography>
           <Typography
-            style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}
+            style={{
+              wordWrap: "break-word",
+              whiteSpace: "pre-line",
+              display: '-webkit-box',
+              overflow: 'hidden',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 5,
+             }}
             variant="body2"
             color="text.secondary"
           >
