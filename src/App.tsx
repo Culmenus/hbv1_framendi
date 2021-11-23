@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
-import Homepage from "./pages/HomePage/Homepage";
+import Homepage from "./pages/Homepage/Homepage";
 //import Header from "./components/header/Header";
 //import Footer from "./components/footer/Footer";
 import NotFound from "./components/notfound/NotFound";
@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { User } from "./types/User";
 import { Role } from "./types/Role";
-import { mockForums } from "./pages/HomePage/fakecontent";
+import { mockForums } from "./pages/Homepage/fakecontent";
 import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
 import NavBar from "./components/NavBar/NavBar";
 
