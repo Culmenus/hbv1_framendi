@@ -35,8 +35,55 @@ export default function ThreadComponent({
   thread: TThread | null;
 }) {
   const classes = useStyles();
-  const [messages, setMessages] = useState<Array<Message>>(FakeMessages);
+  const [messages, setMessages] = useState<Array<Message>>([]);
   const [value, setValue] = useState<string>("");
+  const user = useAppSelector(selectCurrentUser);
+  useEffect(() => {
+    connect();
+    return () => {
+      disconnect();
+    };
+  }, []);
+
+  function connect() {
+    stompClient = new Client({
+      webSocketFactory: function socketFactor() {
+        return new SockJS("http://127.0.0.1:8080/thread/");
+      },
+    });
+
+    stompClient.activate();
+    stompClient.onConnect = function (frame) {
+      console.log("Connected");
+      stompClient?.subscribe(`/thread/${id}/get`, function (msg) {
+        setMessages((messages) => [...messages, JSON.parse(msg.body)]);
+      });
+    };
+    stompClient.onStompError = function (frame) {
+      console.log("Broker reported error: " + frame.headers["message"]);
+      console.log("Additional details: " + frame.body);
+    };
+  }
+
+  function disconnect() {
+    if (stompClient !== null) {
+      stompClient.deactivate();
+    }
+    console.log("Disconnected");
+  }
+
+  function sendMessage() {
+    const message: Message = {
+      sentBy: user ?? undefined,
+      message: value,
+      isEdited: false,
+    };
+    stompClient?.publish({
+      destination: `/app/thread/${id}/send`,
+      body: JSON.stringify(message),
+    });
+    setValue("");
+  }
   return (
     <Box
       display="flex"
@@ -69,6 +116,11 @@ export default function ThreadComponent({
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
+        }}
+        onKeyUp={(e) => {
+          if (e.key === "Enter" && value) {
+            sendMessage();
+          }
         }}
         InputProps={{
           endAdornment: <Button>send</Button>,
