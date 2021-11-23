@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
 import { Message } from "../../types/Message";
+import { FakeMessages } from "../../pages/Homepage/fakecontent";
 
 const useStyles = makeStyles(() => ({
   dialog: {
