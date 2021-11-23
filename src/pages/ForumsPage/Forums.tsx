@@ -18,10 +18,13 @@ import { Thread as TThread } from "../../types/Thread";
 import { Grid } from "@material-ui/core";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import ForumComponent from "../../components/forum/Forum";
-import { useGetForumQuery } from "../../app/services/backendConnection";
+import {
+  useGetForumQuery,
+  useGetLoggedInQuery,
+} from "../../app/services/backendConnection";
 
-const Forum = ({ isDarkTheme, user }: { isDarkTheme: boolean; user: User }) => {
-  const [currentUser, setCurrentUser] = useState<User>(user);
+const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
+  const { data: user, isLoading: userLoading } = useGetLoggedInQuery();
   const [selectedValue, setSelectedValue] = React.useState("");
   const [selectedThread, setSelectedThread] = useState<TThread | null>(null);
   const [bgColor, setBgColor] = useState<string>("#1F1F1F");
@@ -72,7 +75,7 @@ const Forum = ({ isDarkTheme, user }: { isDarkTheme: boolean; user: User }) => {
                   <ForumComponent
                     forum={forum}
                     setSelectedThread={setSelectedThread}
-                    user={currentUser}
+                    user={user}
                     bgColor={bgColor}
                   />
                 ) : null}
