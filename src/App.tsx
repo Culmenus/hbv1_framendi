@@ -1,5 +1,5 @@
-import React from "react";
-import Forum from "./components/forum/Forum";
+import React, { useEffect, useState } from "react";
+import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/HomePage/Homepage";
 //import Header from "./components/header/Header";
 //import Footer from "./components/footer/Footer";
@@ -11,29 +11,60 @@ import SignUp from "./pages/SignupPage/Signup";
 import Forgotpassword from "./pages/ForgotPasswordPage/Forgotpassword";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { ThemeProvider } from "@mui/system";
-import { darkTheme } from "./pages/PageMisc";
-import { Container, CssBaseline } from "@mui/material";
+import { User } from "./types/User";
+import { Role } from "./types/Role";
+import { mockForums } from "./pages/HomePage/fakecontent";
+import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
+import NavBar from "./components/NavBar/NavBar";
 
-const App: React.FC = () => {
+const tempUser: User = {
+  id: 1,
+  username: "Nati",
+  password: "ermagerd",
+  email: "nati@nati.is",
+  favouriteForums: [],
+  userRole: Role.User,
+};
+
+const App = () => {
+  const [isDarkMode, setDarkMode] = useState<boolean>(true);
+  const NavigationBar = ({ href }: { href: string }) => {
+    return <NavBar href={href} setDarkMode={setDarkMode} />;
+  };
+
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Provider store={store}>
-        <Container component="main">
-          <CssBaseline />
-          {/*<Header/> */}
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/forums/:id" element={<Forum />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/forgotpassword" element={<Forgotpassword />} />
-            <Route element={<NotFound />} />
-          </Routes>
-          {/*<Footer/>*/}
-        </Container>
-      </Provider>
-    </ThemeProvider>
+    <Provider store={store}>
+      {/*<Header/> */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Homepage
+              forums={mockForums}
+              NavBar={<NavigationBar href={"Home"} />}
+            />
+          }
+        />
+        <Route
+          path="/forums/:id"
+          element={<Forum isDarkTheme={true} user={tempUser} />}
+        />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/myforums"
+          element={
+            <FavoriteForums
+              forums={tempUser.favouriteForums}
+              NavBar={<NavigationBar href={"My forums"} />}
+            />
+          }
+        />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgotpassword" element={<Forgotpassword />} />
+        <Route element={<NotFound />} />
+      </Routes>
+      {/*<Footer/>*/}
+    </Provider>
   );
 };
 

@@ -1,12 +1,26 @@
 // veit ikki á þetta kannski að vera Index.tsx?
-import { Container, Grid, ThemeProvider } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Container,
+  Grid,
+  Link,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
-import { darkTheme } from "../PageMisc";
+//import NavBar from "../../components/NavBar/NavBar";
+import { Forum } from "../../types/Forum";
 import { mockForums } from "./fakecontent";
-const Homepage: React.FC = () => {
-  const [forums, setForums] = useState(mockForums);
+const Homepage = ({
+  forums,
+  NavBar,
+}: {
+  forums: Array<Forum>;
+  NavBar: JSX.Element;
+}) => {
   const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   //TODO loading
   if (!data || isLoading) {
@@ -17,17 +31,24 @@ const Homepage: React.FC = () => {
     return <p>log in?</p>;
   }
   return (
-    <Container>
-      <Grid container spacing={3}>
-        {data.map((value) => {
-          return (
-            <Grid key={value.id} item xs={12} md={4} lg={3}>
-              <ForumView forum={value} />
+    <>
+      <Box display="flex" flexDirection="row">
+        <Box flexGrow={0}>{NavBar}</Box>
+        <Box display="flex" flexDirection="row" flexGrow={1} marginTop={10}>
+          <Container>
+            <Grid container spacing={3}>
+              {data.map((value) => {
+                return (
+                  <Grid key={value.id} item xs={12} md={4} lg={3}>
+                    <ForumView forum={value} />
+                  </Grid>
+                );
+              })}
             </Grid>
-          );
-        })}
-      </Grid>
-    </Container>
+          </Container>
+        </Box>
+      </Box>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ export function ForumView({ forum }: Props) {
   const imgNum = Math.floor(Math.random() * 17) + 1;
   const img = require(`./cards/img-${imgNum}.jpg`);
   return (
-    <Link href={`forum/${forum.id}`} underline="hover">
+    <Link href={`forums/${forum.id}`} underline="hover">
       <Card sx={{ maxWidth: 345 }}>
         <CardMedia
           component="img"
@@ -20,7 +20,14 @@ export function ForumView({ forum }: Props) {
             {forum.name}
           </Typography>
           <Typography
-            style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}
+            style={{
+              wordWrap: "break-word",
+              whiteSpace: "pre-line",
+              display: '-webkit-box',
+              overflow: 'hidden',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 5,
+             }}
             variant="body2"
             color="text.secondary"
           >
