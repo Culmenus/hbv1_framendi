@@ -37,8 +37,8 @@ export default function ThreadComponent({
   const classes = useStyles();
   const [messages, setMessages] = useState<Array<Message>>(FakeMessages);
   const [value, setValue] = useState<string>("");
-    return (
-      <Box
+  return (
+    <Box
       display="flex"
       alignItems="center"
       flexDirection="column"
