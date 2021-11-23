@@ -13,6 +13,8 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { User } from "./types/User";
 import { Role } from "./types/Role";
+import { mockForums } from "./pages/HomePage/fakecontent";
+import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
 
 const tempUser: User = {
   id: 1,
@@ -28,9 +30,10 @@ const App: React.FC = () => {
     <Provider store={store}>
       {/*<Header/> */}
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Homepage forums={mockForums} />} />
         <Route path="/forums/:id" element={<Forum isDarkTheme={true} user={tempUser}/>} />
         <Route path="/login" element={<Login />} />
+        <Route path = "/myforums" element={<FavoriteForums forums={tempUser.favouriteForums} />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />
         <Route element={<NotFound />} />

@@ -5,8 +5,7 @@ import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
 import NavBar from "../../components/NavBar/NavBar";
 import { Forum } from "../../types/Forum";
-import { mockForums } from "./fakecontent";
-const Homepage= ({forums}: {forums: Array<Forum>}) => {
+const FavoriteForums= ({forums}: {forums: Array<Forum>}) => {
   //const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   ////TODO loading
   //if (!data || isLoading) {
@@ -24,7 +23,7 @@ const Homepage= ({forums}: {forums: Array<Forum>}) => {
           flexDirection="row"
         >
           <Box flexGrow={0}>
-            <NavBar href={"Home"} />
+            <NavBar href={"My forums"} />
           </Box>
           <Box display="flex" flexDirection="row" flexGrow={1}>
             <Container>
@@ -44,4 +43,4 @@ const Homepage= ({forums}: {forums: Array<Forum>}) => {
   );
 };
 
-export default Homepage;
+export default FavoriteForums;
