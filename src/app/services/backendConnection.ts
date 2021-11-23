@@ -23,7 +23,7 @@ export const backendApi = createApi({
     signin: builder.mutation({
       query: ({ username, password }: SigninCredentials) => ({
         url: "/login",
-        params: { username, password },
+        body: { email: username, password: password },
         method: "POST",
       }),
       transformResponse: (response: { user: User; token: string }) => {
