@@ -3,9 +3,8 @@ import { AppBar, Box, Container, Grid, Link, Toolbar, Typography } from "@mui/ma
 import React, { useState } from "react";
 import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
-import NavBar from "../../components/NavBar/NavBar";
 import { Forum } from "../../types/Forum";
-const FavoriteForums= ({forums}: {forums: Array<Forum>}) => {
+const FavoriteForums= ({forums, NavBar}: {forums: Array<Forum>, NavBar: JSX.Element}) => {
   //const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   ////TODO loading
   //if (!data || isLoading) {
@@ -23,7 +22,7 @@ const FavoriteForums= ({forums}: {forums: Array<Forum>}) => {
           flexDirection="row"
         >
           <Box flexGrow={0}>
-            <NavBar href={"My forums"} />
+            {NavBar}
           </Box>
           <Box display="flex" flexDirection="row" flexGrow={1}>
             <Container>

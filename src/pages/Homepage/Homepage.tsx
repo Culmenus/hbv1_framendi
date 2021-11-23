@@ -3,10 +3,10 @@ import { AppBar, Box, Container, Grid, Link, Toolbar, Typography } from "@mui/ma
 import React, { useState } from "react";
 import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
-import NavBar from "../../components/NavBar/NavBar";
+//import NavBar from "../../components/NavBar/NavBar";
 import { Forum } from "../../types/Forum";
 import { mockForums } from "./fakecontent";
-const Homepage= ({forums}: {forums: Array<Forum>}) => {
+const Homepage= ({forums, NavBar}: {forums: Array<Forum>, NavBar: JSX.Element}) => {
   //const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   ////TODO loading
   //if (!data || isLoading) {
@@ -24,7 +24,7 @@ const Homepage= ({forums}: {forums: Array<Forum>}) => {
           flexDirection="row"
         >
           <Box flexGrow={0}>
-            <NavBar href={"Home"} />
+            {NavBar}
           </Box>
           <Box display="flex" flexDirection="row" flexGrow={1} marginTop={10}>
             <Container>

@@ -6,11 +6,12 @@ import * as React from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-function ThemeToggleButton() {
-  const [alignment, setAlignment] = React.useState('web');
+function ThemeToggleButton( {setDarkMode}: {setDarkMode: Function}) {
+  const [alignment, setAlignment] = React.useState('Dark');
 
   const handleChange = (event: any, newAlignment: React.SetStateAction<string>) => {
     setAlignment(newAlignment);
+    setDarkMode(newAlignment === 'Dark');
   };
 
   return (
@@ -51,7 +52,7 @@ function ThemeToggleButton() {
   );
 }
 
-export default function NavBar({href = "home"}: {href: string}){
+export default function NavBar({href = "home", setDarkMode}: {href: string,setDarkMode: Function}){
     //Mogulega bæta favorited forums í nav bar
     const toolBars = {
         "Home": {url: '/'},
@@ -66,11 +67,10 @@ export default function NavBar({href = "home"}: {href: string}){
                 backgroundColor: 'purple',
                 display: 'flex',
                 justifyContent: 'center',
-                width: '10vw',
                 alignItems: 'center',
               }}
             >
-              <ThemeToggleButton/>
+              <ThemeToggleButton setDarkMode={setDarkMode}/>
               <Box
                 flex={2}
               >
