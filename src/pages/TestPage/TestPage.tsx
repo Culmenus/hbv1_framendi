@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { CompatClient, IMessage, Client } from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
