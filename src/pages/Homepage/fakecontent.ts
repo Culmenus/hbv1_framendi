@@ -1,6 +1,9 @@
 import { Forum } from "../../types/Forum";
 import { Thread } from "../../types/Thread";
 import { LoremIpsum } from "lorem-ipsum";
+import {Message} from "../../types/Message";
+import { User } from "../../types/User";
+import { Role } from "../../types/Role";
 const makeThread = (title: string, id: number): Thread=> {
     return (
         {
@@ -49,12 +52,27 @@ function genData(): Array<Forum> {
 export const mockForums: Array<Forum> = genData()
 
 
+const tempUser: User = {
+    id: 1,
+    username: 'Nati',
+    password: 'ermagerd',
+    email: 'nati@nati.is',
+    favouriteForums: [],
+    userRole: Role.User,
+  }
 
+function genFakeMesages(): Array<Message> {
+    let arr = []
 
-//function genFakeMesages(): Array<Message> {
-//    let arr = []
-//
-//    for(var i = 0; i < 5; i++){
-//        
-//    }
-//} 
+    for(var i = 0; i < 5; i++){
+        arr.push({
+            id: i,
+            message: lorem.generateSentences(2),
+            isEdited: false,
+            sentBy: tempUser,
+        })
+    }
+    return arr
+}
+
+export const FakeMessages: Array<Message> = genFakeMesages();
