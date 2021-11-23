@@ -1,6 +1,55 @@
 
-import { AppBar, Link, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Link, Toolbar, Typography } from "@mui/material";
 
+
+import * as React from 'react';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+
+function ThemeToggleButton() {
+  const [alignment, setAlignment] = React.useState('web');
+
+  const handleChange = (event: any, newAlignment: React.SetStateAction<string>) => {
+    setAlignment(newAlignment);
+  };
+
+  return (
+      <div
+      style={{
+        flex: 1,
+      }}
+      >
+        <ToggleButtonGroup
+          color="primary"
+          value={alignment}
+          exclusive
+          onChange={handleChange}
+        >
+          <ToggleButton value="Dark">
+            <Typography
+              sx= {{
+                fontWeight: 'bold',
+                color: 'white'
+              }}
+            >
+              Dark
+            </Typography>
+          </ToggleButton>
+          <ToggleButton value="Light">
+            <Typography
+                sx= {{
+                  fontWeight: 'bold',
+                  color: 'white'
+                }}
+              >
+                Light
+            </Typography>
+          </ToggleButton>
+
+        </ToggleButtonGroup>
+      </div>
+  );
+}
 
 export default function NavBar({href = "home"}: {href: string}){
     //Mogulega bæta favorited forums í nav bar
@@ -18,8 +67,13 @@ export default function NavBar({href = "home"}: {href: string}){
                 display: 'flex',
                 justifyContent: 'center',
                 width: '10vw',
+                alignItems: 'center',
               }}
             >
+              <ThemeToggleButton/>
+              <Box
+                flex={2}
+              >
                 {Object.entries(toolBars).map(([name,url]) => {
                     return (
                     <>
@@ -36,6 +90,7 @@ export default function NavBar({href = "home"}: {href: string}){
                           >
                             <Typography
                               sx= {{
+                                fontWeight: 'bold',
                                 color: 'white',
                                 textDecoration: 'none',
                               }}
@@ -47,7 +102,7 @@ export default function NavBar({href = "home"}: {href: string}){
                     </>
                     )
                 })}
-              
+              </Box>
             </AppBar>
     )
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/HomePage/Homepage";
 //import Header from "./components/header/Header";
@@ -25,7 +25,9 @@ const tempUser: User = {
   userRole: Role.User,
 }
 
-const App: React.FC = () => {
+const App= () => {
+  const [isDarkMode, setDarkMode] = useState<boolean>(true);
+
   return (
     <Provider store={store}>
       {/*<Header/> */}

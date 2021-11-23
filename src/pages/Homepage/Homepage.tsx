@@ -26,7 +26,7 @@ const Homepage= ({forums}: {forums: Array<Forum>}) => {
           <Box flexGrow={0}>
             <NavBar href={"Home"} />
           </Box>
-          <Box display="flex" flexDirection="row" flexGrow={1}>
+          <Box display="flex" flexDirection="row" flexGrow={1} marginTop={10}>
             <Container>
               <Grid container spacing={3}>
                 {data.map((value) => {
