@@ -37,14 +37,8 @@ export default function ThreadComponent({
   const classes = useStyles();
   const [messages, setMessages] = useState<Array<Message>>(FakeMessages);
   const [value, setValue] = useState<string>("");
-<<<<<<< HEAD
-  console.log(thread);
-  return (
-    <Box
-=======
     return (
       <Box
->>>>>>> 228e57c3f8c9268d1ad6badf75108dc5792fd869
       display="flex"
       alignItems="center"
       flexDirection="column"
