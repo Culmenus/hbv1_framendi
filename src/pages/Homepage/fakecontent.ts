@@ -29,7 +29,7 @@ const lorem = new LoremIpsum({
 function genData(): Array<Forum> {
     let arr = []
     let thrds = []
-    for(var j = 0; j< 5; j++){
+    for(var j = 0; j< 20; j++){
         thrds.push(makeThread('Halló heimur jdsksglsgsgslkgnsg,nslkg',j))
     }
     for(var i = 0; i < 17; i++){
@@ -48,3 +48,13 @@ function genData(): Array<Forum> {
 }
 export const mockForums: Array<Forum> = genData()
 
+
+
+
+//function genFakeMesages(): Array<Message> {
+//    let arr = []
+//
+//    for(var i = 0; i < 5; i++){
+//        
+//    }
+//} 

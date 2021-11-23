@@ -1,5 +1,5 @@
 import React from "react";
-import Forum from "./components/forum/Forum";
+import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/HomePage/Homepage";
 //import Header from "./components/header/Header";
 //import Footer from "./components/footer/Footer";
@@ -11,6 +11,17 @@ import SignUp from "./pages/SignupPage/Signup";
 import Forgotpassword from "./pages/ForgotPasswordPage/Forgotpassword";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { User } from "./types/User";
+import { Role } from "./types/Role";
+
+const tempUser: User = {
+  id: 1,
+  username: 'Nati',
+  password: 'ermagerd',
+  email: 'nati@nati.is',
+  favouriteForums: [],
+  userRole: Role.User,
+}
 
 const App: React.FC = () => {
   return (
@@ -18,7 +29,7 @@ const App: React.FC = () => {
       {/*<Header/> */}
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/forums/:id" element={<Forum />} />
+        <Route path="/forums/:id" element={<Forum isDarkTheme={true} user={tempUser}/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />
