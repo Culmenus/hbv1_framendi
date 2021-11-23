@@ -16,12 +16,13 @@ import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import ForumIcon from '@mui/icons-material/Forum';
-import { ListItemIcon } from '@mui/material';
+import { ListItemIcon, Paper, styled } from '@mui/material';
 import ThreadComponent from '../thread/Thread';
 import {User } from '../../types/User';
 import {Role } from '../../types/Role';
 import {Thread as TThread} from '../../types/Thread';
-
+import {useContainerStyles} from './styles';
+import { Grid } from '@material-ui/core';
 const tempUser: User = {
   id: 1,
   username: 'Nati',
@@ -36,6 +37,15 @@ const Forum: React.FC = () => {
   const [selectedValue, setSelectedValue] = React.useState("");
   const [selectedThread, setSelectedThread] = useState<TThread | null>(null);
 
+  const classes = useContainerStyles();
+
+
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
   const handleClose = () => {
     setOpen(false);
   };
@@ -50,64 +60,74 @@ const Forum: React.FC = () => {
   },[id,forum])
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main">
         <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          {forum?.threads.map((thread,i) => {
-            return(
-              <List
-                key={i}
-                onClick={
-                  () => {
-                    setOpen(true);
-                    setSelectedThread(thread);
-                  }
-                }
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Item>
+              <Box
                 sx={{
-                width: '100%',
-                maxWidth: 360,
-                borderBottom: 1,
-                marginBottom: 2, 
-                backgroundColor: '#F3F3F3',
-                cursor: 'pointer',}}>
-                  {/*TODO: Pop up á thread component? eða senda á '/threads/id' ? */}
-                <ListItem alignItems="center">
-                  <ListItemAvatar>
-                    <Avatar>{tempUser.username[0]}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={thread.title}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: 'inline' }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                        </Typography>
-                        {thread.description}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-              </List>
-            )
-          })}
-          <ThreadComponent
-            selectedValue={selectedValue}
-            open={open}
-            onClose={handleClose}
-            thread={selectedThread}
-          />
-        </Box>
+                  marginTop: 8,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                {forum?.threads.map((thread,i) => {
+                  return(
+                    <List
+                      key={i}
+                      onClick={
+                        () => {
+                          setOpen(true);
+                          setSelectedThread(thread);
+                        }
+                      }
+                      sx={{
+                      width: '100%',
+                      maxWidth: 360,
+                      borderBottom: 1,
+                      marginBottom: 2, 
+                      backgroundColor: '#F3F3F3',
+                      cursor: 'pointer',}}>
+                        {/*TODO: Pop up á thread component? eða senda á '/threads/id' ? */}
+                      <ListItem alignItems="center">
+                        <ListItemAvatar>
+                          <Avatar>{tempUser.username[0]}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={thread.title}
+                          secondary={
+                            <React.Fragment>
+                              <Typography
+                                sx={{ display: 'inline' }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                              >
+                              </Typography>
+                              {thread.description}
+                            </React.Fragment>
+                          }
+                        />
+                      </ListItem>
+                    </List>
+                  )
+                })}
+              </Box>
+            </Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>
+              <ThreadComponent
+                  selectedValue={selectedValue}
+                  open={open}
+                  onClose={handleClose}
+                  thread={selectedThread}
+              />
+            </Item>
+          </Grid>
+        </Grid>
       </Container>
     </ThemeProvider>
   );

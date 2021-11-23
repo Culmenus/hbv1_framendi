@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
 import { TextInput } from "./TextInput";
-import { MessageLeft, MessageRight } from "./MessageComponents";
+import { MessageLeft, MessageRight } from './MessageComponents';
 import { LoremIpsum } from "lorem-ipsum";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
       flexDirection: "column",
       position: "relative",
+      backgroundColor: 'red'
     },
     container: {
       width: "30vw",
@@ -54,38 +55,38 @@ const lorem = new LoremIpsum({
 export function Chat() {
   const classes = useStyles();
   return (
-      <Paper className={classes.paper} >
-        <Paper className={classes.messagesBody}>
-          <MessageLeft
-            message={lorem.generateParagraphs(1)}
-            timestamp="MM/DD 00:00"
-            photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-            displayName="Jonny boi"
-            avatarDisp={true}
-          />
-          <MessageLeft
-            message={lorem.generateParagraphs(1)}
-            timestamp="MM/DD 00:00"
-            photoURL=""
-            displayName="Jonny boi"
-            avatarDisp={false}
-          />
-          <MessageRight
-            message={lorem.generateParagraphs(1)}
-            timestamp="MM/DD 00:00"
-            photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-            displayName="Oat meal"
-            avatarDisp={true}
-          />
-          <MessageRight
-            message={lorem.generateParagraphs(1)}
-            timestamp="MM/DD 00:00"
-            photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
-            displayName="Daniel weekend"
-            avatarDisp={false}
-          />
-        </Paper>
-        <TextInput />
-      </Paper>
+        <>
+              <div className={classes.container}>
+              <MessageLeft
+                message={lorem.generateParagraphs(1)}
+                timestamp="MM/DD 00:00"
+                photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                displayName="Jonny boi"
+                avatarDisp={true}
+              />
+              <MessageLeft
+                message={lorem.generateParagraphs(1)}
+                timestamp="MM/DD 00:00"
+                photoURL=""
+                displayName="Jonny boi"
+                avatarDisp={false}
+              />
+              <MessageRight
+                message={lorem.generateParagraphs(1)}
+                timestamp="MM/DD 00:00"
+                photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                displayName="Oat meal"
+                avatarDisp={true}
+              />
+              <MessageRight
+                message={lorem.generateParagraphs(1)}
+                timestamp="MM/DD 00:00"
+                photoURL="https://lh3.googleusercontent.com/a-/AOh14Gi4vkKYlfrbJ0QLJTg_DLjcYyyK7fYoWRpz2r4s=s96-c"
+                displayName="Daniel weekend"
+                avatarDisp={false}
+              />
+            <TextInput />
+              </div>
+        </>
   );
 }

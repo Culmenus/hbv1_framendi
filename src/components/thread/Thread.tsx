@@ -45,16 +45,8 @@ export default function ThreadComponent({
 
   if(thread)
     return (
-      <Dialog
-        onClose={handleClose}
-        open={open}
-        fullWidth = {true}
-        maxWidth={false}
-        classes={{ paper: classes.dialog}}
-         >
-       {/* display header */}
-        <Chat/>
-      </Dialog>
+      //Process threads and messages
+      <Chat/>
     );
   else
       return(<></>)
