@@ -51,7 +51,7 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
     }
   }, [data, isDarkTheme]);
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
       <Container
         component="main"
         style={{
