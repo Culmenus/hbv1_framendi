@@ -12,6 +12,7 @@ import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../app/auth";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import Scrollbars from "react-custom-scrollbars-2";
 
 let stompClient: Client | null = null;
 const useStyles = makeStyles(() => ({
@@ -88,29 +89,35 @@ export default function ThreadComponent({
       width="100%"
       height="100%"
       maxHeight="75vh"
+      padding={0}
     >
-      <Container
-        style={{
-          overflow: "auto",
-          display: "flex",
-          flexDirection: "column-reverse",
-          paddingBottom: "10px",
-          marginTop: "auto",
-          alignContent: "flex-end",
-        }}
-      >
-        <List style={{ flex: 1, alignContent: "flex-end" }}>
-          {messages.map((value: MessageDto, index) => {
-            return (
-              <MessageComponent
-                key={index.toString()}
-                msg={value}
-                myID={user?.id || null}
-              />
-            );
-          })}
-        </List>
-      </Container>
+      <Scrollbars style={{ height: "75vh" }} color={"#ccc"}>
+        <Container
+          style={{
+            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column-reverse",
+            paddingBottom: "10px",
+            marginTop: "auto",
+            alignContent: "flex-end",
+            padding: "5px",
+            width: "100%",
+            overflowX: "clip",
+          }}
+        >
+          <List style={{ flex: 1, alignContent: "flex-end" }}>
+            {messages.map((value: MessageDto, index) => {
+              return (
+                <MessageComponent
+                  key={index.toString()}
+                  msg={value}
+                  myID={user?.id || null}
+                />
+              );
+            })}
+          </List>
+        </Container>
+      </Scrollbars>
       <TextField
         style={{ width: "100%" }}
         label="Skrifa skeyti"

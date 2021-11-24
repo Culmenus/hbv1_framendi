@@ -9,24 +9,31 @@ export function MessageComponent({
   msg: { userID, username, message, createdAt },
   myID,
 }: Props) {
+  const align = userID === myID ? "end" : "start";
   return (
     <Box
-      justifyContent={userID === myID ? "flex-end" : "flex-start"}
+      display="flex"
+      flexDirection="column"
+      alignItems={align}
       sx={{
-        backgroundColor: userID === myID ? "gray" : "blue",
+        // backgroundColor: userID === myID ? "blue" : "gray",
         margin: 1,
-        width: "50%",
-        borderRadius: 5,
-        padding: 2,
+        borderTop: 1,
+        borderColor: "gray",
+        width: "95%",
+        padding: 0,
       }}
     >
-      <Typography variant="caption">
+      <Typography
+        color={userID === myID ? "darkcyan" : "gray"}
+        variant="caption"
+      >
         {username || "Óþekktur notandi"}
       </Typography>
       <Typography style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}>
         {message}
       </Typography>
-      <Typography textAlign="end" variant="caption">
+      <Typography color="gray" variant="caption">
         {simpleFormattedDate(createdAt)}
       </Typography>
     </Box>
