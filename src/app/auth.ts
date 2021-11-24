@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../types/User";
+import { backendApi } from "./services/backendConnection";
 import { RootState } from "./store";
 
 export type Token = string | null;
@@ -24,6 +25,20 @@ export const authSlice = createSlice({
     signout: (state) => {
       state.user = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      backendApi.endpoints.signin.matchFulfilled,
+      (state, action) => {
+        state.user = action.payload.user;
+      }
+    );
+    builder.addMatcher(
+      backendApi.endpoints.getLoggedIn.matchFulfilled,
+      (state, action) => {
+        state.user = action.payload;
+      }
+    );
   },
 });
 

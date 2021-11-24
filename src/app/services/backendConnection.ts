@@ -40,8 +40,15 @@ export const backendApi = createApi({
     getForum: builder.query<Forum, { id: string }>({
       query: ({ id }) => `/api/forum/${id}`,
     }),
+    getLoggedIn: builder.query<User, void>({
+      query: () => "/api/user/loggedin",
+    }),
   }),
 });
 
-export const { useGetAllForumsQuery, useSigninMutation, useGetForumQuery } =
-  backendApi;
+export const {
+  useGetAllForumsQuery,
+  useSigninMutation,
+  useGetForumQuery,
+  useGetLoggedInQuery,
+} = backendApi;
