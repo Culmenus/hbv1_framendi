@@ -17,7 +17,7 @@ import { Thread as TThread } from "../../types/Thread";
 import CustomizedMenus from "./StyledMenu";
 import ThreadComponent from "../thread/Thread";
 import { useAddThreadMutation } from "../../app/services/backendConnection";
-import Modal from "./Modal";
+import CreateThread from "./Modal";
 
 export default function ForumComponent({
   forum,
@@ -33,6 +33,8 @@ export default function ForumComponent({
   const [creating, setCreating] = useState<boolean>(false);
   const [threads, setThreads] = useState<Array<TThread>>(forum.threads);
   const [sendThread, {data: newThread,isLoading, isSuccess}] = useAddThreadMutation();
+  const [title, setTitle] = useState<string | undefined>("");
+  const [description, setDescription] = useState<string | undefined>("");
   React.useEffect(()=> {
     if(newThread){
       setThreads((threads) => [...threads, newThread])
@@ -44,21 +46,20 @@ export default function ForumComponent({
   }
   const createThread = () => {
     setCreating(true);
-    let thr: TThread = {
-        title: "asdf",
-        description: "awef",
-        messages: [],
-        lastUpdated: new Date(),
-    }
-    addThread(thr);
-    console.log(creating);
   }
   if (creating) {
-    return (<><Modal/></>);
+    return (<><CreateThread 
+        setTitle = {setTitle}
+        setDescription = {setDescription}
+        setCreating = {setCreating}
+        addThread = {addThread}
+        title = {title}
+        description = {description}
+         /></>);
   } 
   return (
     <>
-      <Button onClick={createThread}>Create new thread</Button>
+      <Button onClick={() => { setCreating(true); }}>Create new thread</Button>
       {threads.map((thread: TThread, i: number) => {
         return (
           <List
