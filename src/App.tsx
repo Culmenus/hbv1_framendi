@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route
             path="/myforums"
-            element={<FavoriteForums forums={tempUser.favoriteForums || []} />}
+            element={<FavoriteForums />}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />

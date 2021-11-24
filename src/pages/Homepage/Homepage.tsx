@@ -20,6 +20,7 @@ import MiniDrawer from "../../components/NavBar/Drawer";
 import { Forum } from "../../types/Forum";
 //import { mockForums } from "./fakecontent";
 import { darkTheme } from "../PageMisc";
+import ForumList from "../../components/forumList/forumList";
 const Homepage = () => {
   const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   const user = useAppSelector(selectCurrentUser);
@@ -33,17 +34,7 @@ const Homepage = () => {
   }
   //const [data, setData] = useState<Array<Forum>>(forums);
   return (
-    <Container style={{ marginTop: "100px" }}>
-      <Grid container spacing={3}>
-        {data.map((value) => {
-          return (
-            <Grid key={value.id} item xs={12} md={4} lg={3}>
-              <ForumView forum={value} homepage={true} />
-            </Grid>
-          );
-        })}
-      </Grid>
-    </Container>
+    <ForumList  data={data}/>
   );
 };
 
