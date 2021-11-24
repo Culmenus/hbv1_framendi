@@ -6,6 +6,6 @@ export type User = {
   username: string;
   password: string; // sleppa pw hér?
   email: string;
-  favouriteForums: Array<Forum>;
+  favoriteForums: Array<Forum>;
   userRole: Role;
 };

@@ -9,39 +9,20 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { selectCurrentUser } from "../../app/auth";
+import { useAppSelector } from "../../app/hooks";
 import { useGetAllForumsQuery } from "../../app/services/backendConnection";
+import ForumList from "../../components/forumList/forumList";
 import { ForumView } from "../../components/forumView/forumView";
 import { Forum } from "../../types/Forum";
-const FavoriteForums = ({ forums }: { forums: Array<Forum> }) => {
-  const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
-  //TODO loading
-  if (!data || isLoading) {
-    return <p>loading!</p>;
+const FavoriteForums = () => {
+  const user = useAppSelector(selectCurrentUser);
+
+  if(user) {
+    console.log(user);
+    return <ForumList data={user.favoriteForums} />
   }
-  //TODO login again? or simply error
-  if (!isSuccess) {
-    return <p>log in?</p>;
-  }
-  //const [data, setData] = useState(forums);
-  return (
-    <>
-      <Box display="flex" flexDirection="row">
-        <Box display="flex" flexDirection="row" flexGrow={1}>
-          <Container>
-            <Grid container spacing={3}>
-              {data.map((value) => {
-                return (
-                  <Grid key={value.id} item xs={12} md={4} lg={3}>
-                    <ForumView forum={value} />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Container>
-        </Box>
-      </Box>
-    </>
-  );
+  return <> </>
 };
 
 export default FavoriteForums;

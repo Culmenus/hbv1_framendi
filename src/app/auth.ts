@@ -39,6 +39,12 @@ export const authSlice = createSlice({
         state.user = action.payload;
       }
     );
+    builder.addMatcher(backendApi.endpoints.addToFavorites.matchFulfilled, (state, action) => {
+      console.log(action.payload)
+      if(state.user){
+        state.user.favoriteForums = action.payload;
+      }
+    })
   },
 });
 
