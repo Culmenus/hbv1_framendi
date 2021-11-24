@@ -13,8 +13,14 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import Scrollbars from "react-custom-scrollbars-2";
 import { usePostMessageMutation } from "../../app/services/backendConnection";
+import { deepPurple } from "@mui/material/colors";
 
 let stompClient: Client | null = null;
+const styles = {
+  input: {
+    color: "white",
+  },
+};
 
 export default function ThreadComponent({
   thread,
@@ -147,6 +153,7 @@ export default function ThreadComponent({
         style={{ width: "100%" }}
         label="Skrifa skeyti"
         variant="standard"
+        sx={{ color: "#fff" }}
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
@@ -156,7 +163,9 @@ export default function ThreadComponent({
             sendMessage();
           }
         }}
+        // InputLabelProps={{ style: { color: deepPurple[500] } }}
         InputProps={{
+          style: { color: "white" },
           endAdornment: <Button onClick={() => sendMessage()}>send</Button>,
         }}
       />

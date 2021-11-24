@@ -1,5 +1,5 @@
 import { Forum as TForum } from "../../types/Forum";
-import { Button, Typography } from "@mui/material";
+import { Button, Container, CssBaseline, Typography } from "@mui/material";
 
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,7 @@ import CustomizedMenus from "./StyledMenu";
 import ThreadComponent from "../thread/Thread";
 import { useAddThreadMutation } from "../../app/services/backendConnection";
 import CreateThread from "./Modal";
+import { ThemeProvider } from "@emotion/react";
 
 export default function ForumComponent({
   forum,
@@ -45,7 +46,6 @@ export default function ForumComponent({
   const addThread = (thread: TThread) => {
     sendThread({ thread, forumId: forum.id.toString() });
   };
-
   //if (creating) {
   //  return (
   //    <>
@@ -61,15 +61,16 @@ export default function ForumComponent({
   //  );
   //}
   return (
-    <>
-      {/*{creating ? <CreateThread
-          setTitle={setTitle}
-          setDescription={setDescription}
-          setCreating={setCreating}
-          addThread={addThread}
-          title={title}
-          description={description}
-      /> : null}*/}
+    <Container>
+      <CreateThread
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setCreating={setCreating}
+        creating={creating}
+        addThread={addThread}
+        title={title}
+        description={description}
+      />
       <Button
         onClick={() => {
           setCreating(true);
@@ -165,6 +166,6 @@ export default function ForumComponent({
           </List>
         );
       })}
-    </>
+    </Container>
   );
 }
