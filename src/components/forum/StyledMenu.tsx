@@ -10,6 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Dispatch, SetStateAction } from 'react';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -52,7 +53,11 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-export default function CustomizedMenus() {
+export default function CustomizedMenus({
+  editing, setEditing
+}: {
+  editing: boolean, setEditing: Dispatch<SetStateAction<boolean>>
+}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

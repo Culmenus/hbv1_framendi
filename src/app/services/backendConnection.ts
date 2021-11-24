@@ -32,6 +32,16 @@ export const backendApi = createApi({
         return response;
       },
     }),
+    addThread: builder.mutation({
+        query: ({thread, forumId}: {thread: Thread, forumId: string}) => ({
+          url: `/api/forum/${forumId}`,
+          body: thread,
+          method: "POST"
+        }),
+        transformResponse: (response: Thread) => {
+            return response;
+        }
+    }),
     postMessage: builder.mutation({
       query: ({
         message,
@@ -65,5 +75,6 @@ export const {
   useSigninMutation,
   useGetForumQuery,
   useGetLoggedInQuery,
+  useAddThreadMutation,
   usePostMessageMutation,
 } = backendApi;

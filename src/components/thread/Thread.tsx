@@ -96,7 +96,7 @@ export default function ThreadComponent({
     });
     postMessage({
       message: message,
-      threadID: id.toString(),
+      threadID: id?.toString() || "",
     });
     setValue("");
   }
