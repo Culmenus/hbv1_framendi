@@ -2,7 +2,7 @@ import { Forum as TForum } from "../../types/Forum";
 import { Button, Typography } from "@mui/material";
 
 
-import React from "react";
+import { useEffect, useState } from "react";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -12,8 +12,12 @@ import Avatar from "@mui/material/Avatar";
 
 import { User } from "../../types/User";
 
+import * as React from "react";
 import { Thread as TThread } from "../../types/Thread";
 import CustomizedMenus from "./StyledMenu";
+import ThreadComponent from "../thread/Thread";
+import { useAddThreadMutation } from "../../app/services/backendConnection";
+import CreateThread from "./Modal";
 
 export default function ForumComponent({
   forum,
@@ -26,13 +30,38 @@ export default function ForumComponent({
   user: User | undefined;
   bgColor: string;
 }) {
-  const createThread = () => {
-    
+  const [creating, setCreating] = useState<boolean>(false);
+  const [editing, setEditing] = useState<boolean>(false);
+  const [threads, setThreads] = useState<Array<TThread>>(forum.threads);
+  const [sendThread, {data: newThread,isLoading, isSuccess}] = useAddThreadMutation();
+  const [title, setTitle] = useState<string | undefined>("");
+  const [description, setDescription] = useState<string | undefined>("");
+  React.useEffect(()=> {
+    if(newThread){
+      setThreads((threads) => [...threads, newThread])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newThread])
+  const addThread = (thread: TThread) => {
+    sendThread({thread, forumId: forum.id.toString()})
   }
+  const createThread = () => {
+    setCreating(true);
+  }
+  if (creating) {
+    return (<><CreateThread 
+        setTitle = {setTitle}
+        setDescription = {setDescription}
+        setCreating = {setCreating}
+        addThread = {addThread}
+        title = {title}
+        description = {description}
+         /></>);
+  } 
   return (
     <>
-      {forum.threads.map((thread: TThread, i: number) => {
-        console.log(thread)
+      <Button onClick={() => { setCreating(true); }}>Create new thread</Button>
+      {threads.map((thread: TThread, i: number) => {
         return (
           <List
             key={i}
@@ -82,7 +111,7 @@ export default function ForumComponent({
                         fontSize: 8,
                       }}
                     >
-                      YYYY/MM/DD hh:mm:ss
+                      {thread.lastUpdated}
                     </Typography>
                   }
                 />
@@ -114,12 +143,12 @@ export default function ForumComponent({
                 }
               />
               {user?.id /*=== thread.user?.id */? 
-              <CustomizedMenus /> : null}
+              <CustomizedMenus editing = {editing} setEditing = {setEditing} /> : null}
             </ListItem>
           </List>
         )
       })}
-      <Button onClick={createThread}>Create new thread</Button>
+      
 
     </>
   )
