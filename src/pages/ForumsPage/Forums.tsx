@@ -58,7 +58,7 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
     >
       <Typography variant="h5">{forum?.name}</Typography>
       <Grid container spacing={5}>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <Scrollbars style={{ height: "80vh" }}>
             <Box
               sx={{
@@ -80,7 +80,7 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
           </Scrollbars>
         </Grid>
         {selectedThread ? (
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <ThreadComponent thread={selectedThread} />
           </Grid>
         ) : null}

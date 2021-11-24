@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Forum } from "../../types/Forum";
 import { User } from "../../types/User";
 import { Thread } from "../../types/Thread";
+import { Message, MessageDto } from "../../types/Message";
 type SigninCredentials = {
   username: string;
   password: string;
@@ -9,7 +10,7 @@ type SigninCredentials = {
 export const backendApi = createApi({
   reducerPath: "backendApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8080",
+    baseUrl: "http://127.0.0.1:8080",
     prepareHeaders: async (headers, { getState }) => {
       const token = localStorage.getItem("appToken");
       if (token !== null) {
@@ -31,6 +32,19 @@ export const backendApi = createApi({
         return response;
       },
     }),
+    postMessage: builder.mutation({
+      query: ({
+        message,
+        threadID,
+      }: {
+        message: MessageDto;
+        threadID: string;
+      }) => ({
+        url: `/api/thread/${threadID}`,
+        body: message,
+        method: "POST",
+      }),
+    }),
     getAllForums: builder.query<Forum[], void>({
       query: () => "/api/forum",
     }),
@@ -51,4 +65,5 @@ export const {
   useSigninMutation,
   useGetForumQuery,
   useGetLoggedInQuery,
+  usePostMessageMutation,
 } = backendApi;
