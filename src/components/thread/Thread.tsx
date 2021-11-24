@@ -47,7 +47,7 @@ export default function ThreadComponent({
     return () => {
       disconnect();
     };
-  }, []);
+  }, [thread]);
   if (!thread) {
     return <div></div>;
   }
@@ -90,6 +90,7 @@ export default function ThreadComponent({
       userID: user?.id || undefined,
       username: user?.username || undefined,
     };
+    console.log(id);
     stompClient?.publish({
       destination: `/app/thread/${id}/send`,
       body: JSON.stringify(message),
