@@ -62,6 +62,7 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              error={isError}
               id="email"
               label="Email Address"
               name="email"
@@ -71,6 +72,7 @@ export default function Login() {
             <TextField
               margin="normal"
               required
+              error={isError}
               fullWidth
               name="password"
               label="Password"
