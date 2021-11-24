@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //import ThreadComponent from '../thread/Thread';
 import { Forum as TForum } from "../../types/Forum";
-import { mockForums } from "../../pages/HomePage/fakecontent";
 import { ThemeProvider } from "@emotion/react";
 import { darkTheme } from "../../pages/PageMisc";
 import Container from "@mui/material/Container";
@@ -51,45 +50,42 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
     }
   }, [data, isDarkTheme]);
   return (
-    <ThemeProvider theme={theme}>
-      <Container
-        component="main"
-        style={{
-          marginTop: "100px",
-        }}
-      >
-        <Typography variant="h5">{forum?.name}</Typography>
-        <CssBaseline />
-        <Grid container spacing={5}>
-          <Grid item xs={6}>
-            <Scrollbars style={{ height: "80vh" }}>
-              <Box
-                sx={{
-                  marginTop: 8,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                {forum ? (
-                  <ForumComponent
-                    forum={forum}
-                    setSelectedThread={setSelectedThread}
-                    user={user}
-                    bgColor={bgColor}
-                  />
-                ) : null}
-              </Box>
-            </Scrollbars>
-          </Grid>
-          {selectedThread ? (
-            <Grid item xs={6}>
-              <ThreadComponent thread={selectedThread} />
-            </Grid>
-          ) : null}
+    <Container
+      component="main"
+      style={{
+        marginTop: "100px",
+      }}
+    >
+      <Typography variant="h5">{forum?.name}</Typography>
+      <Grid container spacing={5}>
+        <Grid item xs={4}>
+          <Scrollbars style={{ height: "80vh" }}>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {forum ? (
+                <ForumComponent
+                  forum={forum}
+                  setSelectedThread={setSelectedThread}
+                  user={user}
+                  bgColor={bgColor}
+                />
+              ) : null}
+            </Box>
+          </Scrollbars>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        {selectedThread ? (
+          <Grid item xs={8}>
+            <ThreadComponent thread={selectedThread} />
+          </Grid>
+        ) : null}
+      </Grid>
+    </Container>
   );
 };
 

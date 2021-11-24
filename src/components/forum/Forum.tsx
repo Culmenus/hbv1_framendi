@@ -88,7 +88,7 @@ export default function ForumComponent({
                 }}
               >
                 <ListItemAvatar>
-                  <Avatar>{user?.username[0]}</Avatar>
+                  <Avatar>{thread.user?.username[0]}</Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={
@@ -99,7 +99,7 @@ export default function ForumComponent({
                         fontSize: 12,
                       }}
                     >
-                      {user?.username}
+                      {thread.user?.username}
                     </Typography>
                   }
                   secondary={
@@ -141,8 +141,9 @@ export default function ForumComponent({
                   </React.Fragment>
                 }
               />
+              {user?.id /*=== thread.user?.id */? 
+              <CustomizedMenus /> : null}
             </ListItem>
-            <CustomizedMenus />
           </List>
         )
       })}

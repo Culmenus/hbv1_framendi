@@ -7,31 +7,42 @@ import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
 import { Message, MessageDto } from "../../types/Message";
-import { FakeMessages } from "../../pages/HomePage/fakecontent";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../app/auth";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import Scrollbars from "react-custom-scrollbars-2";
+import { usePostMessageMutation } from "../../app/services/backendConnection";
 
 let stompClient: Client | null = null;
-const useStyles = makeStyles(() => ({
-  dialog: {
-    width: "48%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
+
 export default function ThreadComponent({
   thread,
 }: {
   thread: TThread | null;
 }) {
-  const classes = useStyles();
+
   const [messages, setMessages] = useState<Array<MessageDto>>([]);
+  useEffect(() => {
+    if (thread) {
+      setMessages(
+        thread.messages.map((value) => {
+          const dto: MessageDto = {
+            userID: value.sentBy?.id,
+            username: value.sentBy?.username,
+            message: value.message,
+            createdAt: value.createdAt,
+            isEdited: value.isEdited,
+          };
+          return dto;
+        })
+      );
+    }
+  }, []);
+  console.log(messages);
   const [value, setValue] = useState<string>("");
   const user = useAppSelector(selectCurrentUser);
+  const [postMessage] = usePostMessageMutation();
   useEffect(() => {
     connect();
     return () => {
@@ -51,11 +62,17 @@ export default function ThreadComponent({
     stompClient.activate();
     stompClient.onConnect = function (frame: any) {
       console.log("Connected");
-      stompClient?.subscribe(`/thread/${id}/get`, function (msg: { body: string; }) {
-        setMessages((messages) => [...messages, JSON.parse(msg.body)]);
-      });
+      stompClient?.subscribe(
+        `/thread/${id}/get`,
+        function (msg: { body: string }) {
+          setMessages((messages) => [...messages, JSON.parse(msg.body)]);
+        }
+      );
     };
-    stompClient.onStompError = function (frame: { headers: { [x: string]: string; }; body: string; }) {
+    stompClient.onStompError = function (frame: {
+      headers: { [x: string]: string };
+      body: string;
+    }) {
       console.log("Broker reported error: " + frame.headers["message"]);
       console.log("Additional details: " + frame.body);
     };
@@ -68,15 +85,19 @@ export default function ThreadComponent({
   }
 
   function sendMessage() {
-    const message = {
+    const message: MessageDto = {
       message: value,
       isEdited: false,
-      userID: user?.id || null,
-      username: user?.username || null,
+      userID: user?.id || undefined,
+      username: user?.username || undefined,
     };
     stompClient?.publish({
       destination: `/app/thread/${id}/send`,
       body: JSON.stringify(message),
+    });
+    postMessage({
+      message: message,
+      threadID: id?.toString() || "",
     });
     setValue("");
   }
@@ -91,20 +112,20 @@ export default function ThreadComponent({
       maxHeight="75vh"
       padding={0}
     >
-      <Scrollbars style={{ height: "75vh" }} color={"#ccc"}>
-        <Container
-          style={{
-            overflowY: "auto",
-            display: "flex",
-            flexDirection: "column-reverse",
-            paddingBottom: "10px",
-            marginTop: "auto",
-            alignContent: "flex-end",
-            padding: "5px",
-            width: "100%",
-            overflowX: "clip",
-          }}
-        >
+      <Container
+        style={{
+          overflowY: "auto",
+          display: "flex",
+          flexDirection: "column-reverse",
+          paddingBottom: "10px",
+          marginTop: "auto",
+          alignContent: "flex-end",
+          padding: "5px",
+          width: "100%",
+          overflowX: "clip",
+        }}
+      >
+        <Scrollbars style={{ height: "75vh" }} color={"#ccc"}>
           <List style={{ flex: 1, alignContent: "flex-end" }}>
             {messages.map((value: MessageDto, index) => {
               return (
@@ -116,8 +137,9 @@ export default function ThreadComponent({
               );
             })}
           </List>
-        </Container>
-      </Scrollbars>
+        </Scrollbars>
+      </Container>
+
       <TextField
         style={{ width: "100%" }}
         label="Skrifa skeyti"

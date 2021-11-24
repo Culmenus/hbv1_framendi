@@ -66,10 +66,12 @@ const CreateThreadInput = ({
                 <Button variant="contained" color="primary" className={classes.button} 
                   onClick={() => {
                     let thr: TThread = {
+                      id: undefined,
                       title: title,
                       description: description,
                       messages: [],
                       lastUpdated: new Date(),
+                      user: undefined
                   }
                   addThread(thr);
                   setCreating(false);
