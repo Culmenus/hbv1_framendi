@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //import ThreadComponent from '../thread/Thread';
 import { Forum as TForum } from "../../types/Forum";
-import { mockForums } from "../../pages/HomePage/fakecontent";
 import { ThemeProvider } from "@emotion/react";
 import { darkTheme } from "../../pages/PageMisc";
 import Container from "@mui/material/Container";
