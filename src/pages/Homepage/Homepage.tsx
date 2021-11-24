@@ -8,16 +8,16 @@ import MiniDrawer from "../../components/NavBar/Drawer";
 import { Forum } from "../../types/Forum";
 import { mockForums } from "./fakecontent";
 const Homepage= ({forums, NavBar}: {forums: Array<Forum>, NavBar: JSX.Element}) => {
-  //const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
-  ////TODO loading
-  //if (!data || isLoading) {
-  //  return <p>loading!</p>;
-  //}
-  ////TODO login again? or simply error
-  //if (!isSuccess) {
-  //  return <p>log in?</p>;
-  //}
-  const [data, setData] = useState<Array<Forum>>(forums);
+  const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
+  //TODO loading
+  if (!data || isLoading) {
+    return <p>loading!</p>;
+  }
+  //TODO login again? or simply error
+  if (!isSuccess) {
+    return <p>log in?</p>;
+  }
+  //const [data, setData] = useState<Array<Forum>>(forums);
   return (
       <>
         <Box
