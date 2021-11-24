@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/HomePage/Homepage";
 import Userpage from "./pages/Userpage/Userpage";
@@ -20,6 +20,7 @@ import MiniDrawer from "./components/NavBar/Drawer";
 import { useGetLoggedInQuery } from "./app/services/backendConnection";
 import { Box, ThemeProvider, CssBaseline } from "@mui/material";
 import { darkTheme } from "./pages/PageMisc";
+import { ProtectedRoute } from "./utils/ProtectedRoute";
 const tempUser: User = {
   id: 1,
   username: "Nati",
@@ -35,16 +36,45 @@ const App = () => {
       {/*<Header/> */}
       <AppNavigationContainer>
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/forums/:id" element={<Forum isDarkTheme={true} />} />
-          <Route path="/login" element={<Login />} />
+          {/* Private routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Homepage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/forums/:id"
+            element={
+              <ProtectedRoute>
+                <Forum isDarkTheme={true} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user"
+            element={
+              <ProtectedRoute>
+                <Userpage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/myforums"
-            element={<FavoriteForums forums={tempUser.favouriteForums || []} />}
+            element={
+              <ProtectedRoute>
+                <FavoriteForums forums={tempUser.favouriteForums || []} />
+              </ProtectedRoute>
+            }
           />
+
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />
-          <Route path="/user" element={<Userpage />} />
+
           <Route element={<NotFound />} />
         </Routes>
       </AppNavigationContainer>
@@ -57,7 +87,7 @@ type NavProps = {
   children: JSX.Element | JSX.Element[];
 };
 function AppNavigationContainer({ children }: NavProps) {
-  useGetLoggedInQuery();
+  const { data: user, isLoading } = useGetLoggedInQuery();
   const [isDarkMode, setDarkMode] = useState<boolean>(true);
   const NavigationBar = ({ href }: { href: string }) => {
     return <MiniDrawer href={href} setDarkMode={setDarkMode} />;

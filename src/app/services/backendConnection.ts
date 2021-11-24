@@ -13,10 +13,9 @@ export const backendApi = createApi({
     baseUrl: "http://127.0.0.1:8080",
     prepareHeaders: async (headers, { getState }) => {
       const token = localStorage.getItem("appToken");
-      if (token !== null) {
-        console.log(token);
-        headers.set("Authorization", `Bearer ${token}`);
-      }
+
+      headers.set("Authorization", `Bearer ${token || ""}`);
+
       return headers;
     },
   }),
@@ -33,14 +32,14 @@ export const backendApi = createApi({
       },
     }),
     addThread: builder.mutation({
-        query: ({thread, forumId}: {thread: Thread, forumId: string}) => ({
-          url: `/api/forum/${forumId}`,
-          body: thread,
-          method: "POST"
-        }),
-        transformResponse: (response: Thread) => {
-            return response;
-        }
+      query: ({ thread, forumId }: { thread: Thread; forumId: string }) => ({
+        url: `/api/forum/${forumId}`,
+        body: thread,
+        method: "POST",
+      }),
+      transformResponse: (response: Thread) => {
+        return response;
+      },
     }),
     postMessage: builder.mutation({
       query: ({
