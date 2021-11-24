@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/HomePage/Homepage";
 //import Header from "./components/header/Header";
@@ -17,7 +17,7 @@ import { mockForums } from "./pages/HomePage/fakecontent";
 import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
 
 import MiniDrawer from "./components/NavBar/Drawer";
-
+import { useGetLoggedInQuery } from "./app/services/backendConnection";
 
 const tempUser: User = {
   id: 1,
