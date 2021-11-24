@@ -37,7 +37,7 @@ export default function ThreadComponent({
         })
       );
     }
-  }, []);
+  }, [thread]);
   console.log(messages);
   const [value, setValue] = useState<string>("");
   const user = useAppSelector(selectCurrentUser);

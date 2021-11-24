@@ -45,25 +45,31 @@ export default function ForumComponent({
   const addThread = (thread: TThread) => {
     sendThread({ thread, forumId: forum.id.toString() });
   };
-  const createThread = () => {
-    setCreating(true);
-  };
-  if (creating) {
-    return (
-      <>
-        <CreateThread
+
+  //if (creating) {
+  //  return (
+  //    <>
+  //      <CreateThread
+  //        setTitle={setTitle}
+  //        setDescription={setDescription}
+  //        setCreating={setCreating}
+  //        addThread={addThread}
+  //        title={title}
+  //        description={description}
+  //      />
+  //    </>
+  //  );
+  //}
+  return (
+    <>
+      {/*{creating ? <CreateThread
           setTitle={setTitle}
           setDescription={setDescription}
           setCreating={setCreating}
           addThread={addThread}
           title={title}
           description={description}
-        />
-      </>
-    );
-  }
-  return (
-    <>
+      /> : null}*/}
       <Button
         onClick={() => {
           setCreating(true);
