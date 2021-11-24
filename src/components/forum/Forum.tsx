@@ -31,6 +31,7 @@ export default function ForumComponent({
   bgColor: string;
 }) {
   const [creating, setCreating] = useState<boolean>(false);
+  const [editing, setEditing] = useState<boolean>(false);
   const [threads, setThreads] = useState<Array<TThread>>(forum.threads);
   const [sendThread, {data: newThread,isLoading, isSuccess}] = useAddThreadMutation();
   const [title, setTitle] = useState<string | undefined>("");
@@ -142,7 +143,7 @@ export default function ForumComponent({
                 }
               />
               {user?.id /*=== thread.user?.id */? 
-              <CustomizedMenus /> : null}
+              <CustomizedMenus editing = {editing} setEditing = {setEditing} /> : null}
             </ListItem>
           </List>
         )
