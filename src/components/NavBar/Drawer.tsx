@@ -12,6 +12,7 @@ import { Box, Link, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { ThemeToggleButton } from "./NavBar";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { deepPurple } from "@mui/material/colors";
 const drawerWidth = 240;
 
@@ -96,6 +97,7 @@ export default function MiniDrawer({
   const toolBars = {
     Home: { url: "/" },
     "My forums": { url: "myforums" },
+    "User Profile": {url: "user"}
   };
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -201,6 +203,7 @@ export default function MiniDrawer({
                       <Box display="flex" flexDirection="row">
                         {name === "Home" ? <HomeIcon /> : null}
                         {name === "My forums" ? <BookmarkIcon /> : null}
+                        {name === "User Profile" ? <AccountCircleIcon /> : null} 
                         {open ? name : null}
                       </Box>
                     </Typography>
