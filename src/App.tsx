@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
-import Homepage from "./pages/Homepage/Homepage";
+import Homepage from "./pages/HomePage/Homepage";
 import Userpage from "./pages/Userpage/Userpage";
 //import Header from "./components/header/Header";
 //import Footer from "./components/footer/Footer";
@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { User } from "./types/User";
 import { Role } from "./types/Role";
-import { mockForums } from "./pages/Homepage/fakecontent";
+import { mockForums } from "./pages/HomePage/fakecontent";
 import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
 
 import MiniDrawer from "./components/NavBar/Drawer";
