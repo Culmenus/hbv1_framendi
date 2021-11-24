@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import { Message, MessageDto } from "../../types/Message";
-
+import { simpleFormattedDate } from "../../utils/DateUtils";
 type Props = {
   msg: MessageDto;
   myID: number | null;
@@ -24,7 +24,7 @@ export function MessageComponent({
       <Typography style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}>
         {message}
       </Typography>
-      <Typography>{createdAt}</Typography>
+      <Typography>{simpleFormattedDate(createdAt)}</Typography>
     </Box>
   );
 }
