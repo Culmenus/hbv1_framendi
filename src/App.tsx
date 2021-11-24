@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/Homepage/Homepage";
+import Userpage from "./pages/Userpage/Userpage";
 //import Header from "./components/header/Header";
 //import Footer from "./components/footer/Footer";
 import NotFound from "./components/notfound/NotFound";
@@ -61,6 +62,7 @@ const App = () => {
         />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<Forgotpassword />} />
+        <Route path="/user" element={<Userpage />} />
         <Route element={<NotFound />} />
       </Routes>
       {/*<Footer/>*/}
