@@ -3,16 +3,17 @@ import { Message, MessageDto } from "../../types/Message";
 
 type Props = {
   msg: MessageDto;
+  myID: number | null;
 };
 export function MessageComponent({
   msg: { userID, username, message, createdAt },
+  myID,
 }: Props) {
-  const myID = 1;
   return (
     <Box
       justifyContent={userID === myID ? "flex-end" : "flex-start"}
       sx={{
-        backgroundColor: "blue",
+        backgroundColor: userID === myID ? "gray" : "blue",
         margin: 1,
         width: "50%",
         borderRadius: 5,

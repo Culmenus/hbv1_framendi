@@ -102,7 +102,7 @@ export default function ThreadComponent({
       >
         <List style={{ flex: 1, alignContent: "flex-end" }}>
           {messages.map((value: MessageDto) => {
-            return <MessageComponent msg={value} />;
+            return <MessageComponent msg={value} myID={user?.id || null} />;
           })}
         </List>
       </Container>
