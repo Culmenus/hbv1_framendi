@@ -30,20 +30,17 @@ const Homepage = ({ forums }: { forums: Array<Forum> }) => {
   }
   //const [data, setData] = useState<Array<Forum>>(forums);
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Container style={{ marginTop: "100px" }}>
-        <Grid container spacing={3}>
-          {data.map((value) => {
-            return (
-              <Grid key={value.id} item xs={12} md={4} lg={3}>
-                <ForumView forum={value} />
-              </Grid>
-            );
-          })}
-        </Grid>
-      </Container>
-    </ThemeProvider>
+    <Container style={{ marginTop: "100px" }}>
+      <Grid container spacing={3}>
+        {data.map((value) => {
+          return (
+            <Grid key={value.id} item xs={12} md={4} lg={3}>
+              <ForumView forum={value} />
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Container>
   );
 };
 

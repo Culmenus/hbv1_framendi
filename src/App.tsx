@@ -65,19 +65,22 @@ function AppNavigationContainer({ children }: NavProps) {
   };
   return (
     <div>
-      <Box display="flex" flexDirection="row">
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
         <Box display="flex" flexDirection="row">
-          <NavigationBar href={"Home"} />
+          <Box display="flex" flexDirection="row">
+            <NavigationBar href={"Home"} />
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="row"
+            flexGrow={1}
+            justifyContent="center"
+          >
+            {children}
+          </Box>
         </Box>
-        <Box
-          display="flex"
-          flexDirection="row"
-          flexGrow={1}
-          justifyContent="center"
-        >
-          {children}
-        </Box>
-      </Box>
+      </ThemeProvider>
     </div>
   );
 }

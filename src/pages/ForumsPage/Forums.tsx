@@ -50,45 +50,42 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
     }
   }, [data, isDarkTheme]);
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Container
-        component="main"
-        style={{
-          marginTop: "100px",
-        }}
-      >
-        <Typography variant="h5">{forum?.name}</Typography>
-        <Grid container spacing={5}>
-          <Grid item xs={6}>
-            <Scrollbars style={{ height: "80vh" }}>
-              <Box
-                sx={{
-                  marginTop: 8,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                {forum ? (
-                  <ForumComponent
-                    forum={forum}
-                    setSelectedThread={setSelectedThread}
-                    user={user}
-                    bgColor={bgColor}
-                  />
-                ) : null}
-              </Box>
-            </Scrollbars>
-          </Grid>
-          {selectedThread ? (
-            <Grid item xs={6}>
-              <ThreadComponent thread={selectedThread} />
-            </Grid>
-          ) : null}
+    <Container
+      component="main"
+      style={{
+        marginTop: "100px",
+      }}
+    >
+      <Typography variant="h5">{forum?.name}</Typography>
+      <Grid container spacing={5}>
+        <Grid item xs={6}>
+          <Scrollbars style={{ height: "80vh" }}>
+            <Box
+              sx={{
+                marginTop: 8,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {forum ? (
+                <ForumComponent
+                  forum={forum}
+                  setSelectedThread={setSelectedThread}
+                  user={user}
+                  bgColor={bgColor}
+                />
+              ) : null}
+            </Box>
+          </Scrollbars>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        {selectedThread ? (
+          <Grid item xs={6}>
+            <ThreadComponent thread={selectedThread} />
+          </Grid>
+        ) : null}
+      </Grid>
+    </Container>
   );
 };
 
