@@ -1,7 +1,7 @@
 import { Message } from './Message';
 
 export type Thread = {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   messages: Array<Message>;

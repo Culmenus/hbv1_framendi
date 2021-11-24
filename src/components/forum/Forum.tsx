@@ -2,7 +2,7 @@ import { Forum as TForum } from "../../types/Forum";
 import { Button, Typography } from "@mui/material";
 
 
-import React from "react";
+import { useEffect, useState } from "react";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -12,8 +12,12 @@ import Avatar from "@mui/material/Avatar";
 
 import { User } from "../../types/User";
 
+import * as React from "react";
 import { Thread as TThread } from "../../types/Thread";
 import CustomizedMenus from "./StyledMenu";
+import ThreadComponent from "../thread/Thread";
+import { useAddThreadMutation } from "../../app/services/backendConnection";
+import Modal from "./Modal";
 
 export default function ForumComponent({
   forum,
@@ -26,12 +30,36 @@ export default function ForumComponent({
   user: User | undefined;
   bgColor: string;
 }) {
-  const createThread = () => {
-    
+  const [creating, setCreating] = useState<boolean>(false);
+  const [threads, setThreads] = useState<Array<TThread>>(forum.threads);
+  const [sendThread, {data: newThread,isLoading, isSuccess}] = useAddThreadMutation();
+  React.useEffect(()=> {
+    if(newThread){
+      setThreads((threads) => [...threads, newThread])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [newThread])
+  const addThread = (thread: TThread) => {
+    sendThread({thread, forumId: forum.id.toString()})
   }
+  const createThread = () => {
+    setCreating(true);
+    let thr: TThread = {
+        title: "asdf",
+        description: "awef",
+        messages: [],
+        lastUpdated: new Date(),
+    }
+    addThread(thr);
+    console.log(creating);
+  }
+  if (creating) {
+    return (<><Modal/></>);
+  } 
   return (
     <>
-      {forum.threads.map((thread: TThread, i: number) => {
+      <Button onClick={createThread}>Create new thread</Button>
+      {threads.map((thread: TThread, i: number) => {
         return (
           <List
             key={i}
@@ -117,7 +145,7 @@ export default function ForumComponent({
           </List>
         )
       })}
-      <Button onClick={createThread}>Create new thread</Button>
+      
 
     </>
   )
