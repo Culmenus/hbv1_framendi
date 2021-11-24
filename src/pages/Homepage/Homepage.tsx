@@ -31,9 +31,8 @@ const Homepage = ({ forums }: { forums: Array<Forum> }) => {
   //const [data, setData] = useState<Array<Forum>>(forums);
   return (
     <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <Container style={{ marginTop: "100px" }}>
-        <CssBaseline />
-
         <Grid container spacing={3}>
           {data.map((value) => {
             return (
