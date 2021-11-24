@@ -51,6 +51,7 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
   }, [data, isDarkTheme]);
   return (
     <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
       <Container
         component="main"
         style={{
@@ -58,7 +59,6 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
         }}
       >
         <Typography variant="h5">{forum?.name}</Typography>
-        <CssBaseline />
         <Grid container spacing={5}>
           <Grid item xs={6}>
             <Scrollbars style={{ height: "80vh" }}>
