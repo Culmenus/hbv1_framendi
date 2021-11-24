@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/Homepage/Homepage";
 import Userpage from "./pages/Userpage/Userpage";
@@ -16,7 +16,8 @@ import { User } from "./types/User";
 import { Role } from "./types/Role";
 import { mockForums } from "./pages/Homepage/fakecontent";
 import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
-import NavBar from "./components/NavBar/NavBar";
+
+import MiniDrawer from "./components/NavBar/Drawer";
 import { useGetLoggedInQuery } from "./app/services/backendConnection";
 
 const tempUser: User = {
@@ -31,7 +32,7 @@ const tempUser: User = {
 const App = () => {
   const [isDarkMode, setDarkMode] = useState<boolean>(true);
   const NavigationBar = ({ href }: { href: string }) => {
-    return <NavBar href={href} setDarkMode={setDarkMode} />;
+    return <MiniDrawer href={href} setDarkMode={setDarkMode} />;
   };
   return (
     <Provider store={store}>

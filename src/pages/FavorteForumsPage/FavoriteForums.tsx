@@ -5,16 +5,16 @@ import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
 import { Forum } from "../../types/Forum";
 const FavoriteForums= ({forums, NavBar}: {forums: Array<Forum>, NavBar: JSX.Element}) => {
-  //const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
-  ////TODO loading
-  //if (!data || isLoading) {
-  //  return <p>loading!</p>;
-  //}
-  ////TODO login again? or simply error
-  //if (!isSuccess) {
-  //  return <p>log in?</p>;
-  //}
-  const [data, setData] = useState(forums);
+  const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
+  //TODO loading
+  if (!data || isLoading) {
+    return <p>loading!</p>;
+  }
+  //TODO login again? or simply error
+  if (!isSuccess) {
+    return <p>log in?</p>;
+  }
+  //const [data, setData] = useState(forums);
   return (
       <>
         <Box

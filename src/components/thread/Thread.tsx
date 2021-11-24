@@ -1,29 +1,18 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import PersonIcon from "@mui/icons-material/Person";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-import { blue } from "@mui/material/colors";
-import { Chat } from "./chat";
 import { Thread as TThread } from "../../types/Thread";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
-import { Message } from "../../types/Message";
-import { FakeMessages } from "../../pages/Homepage/fakecontent";
+import { Message, MessageDto } from "../../types/Message";
+import { FakeMessages } from "../../pages/HomePage/fakecontent";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../app/auth";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
+import Scrollbars from "react-custom-scrollbars-2";
 
 let stompClient: Client | null = null;
 const useStyles = makeStyles(() => ({
@@ -40,7 +29,7 @@ export default function ThreadComponent({
   thread: TThread | null;
 }) {
   const classes = useStyles();
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [messages, setMessages] = useState<Array<MessageDto>>([]);
   const [value, setValue] = useState<string>("");
   const user = useAppSelector(selectCurrentUser);
   useEffect(() => {
@@ -60,18 +49,17 @@ export default function ThreadComponent({
       },
     });
     stompClient.activate();
-    stompClient.onConnect = function (frame) {
+    stompClient.onConnect = function (frame: any) {
       console.log("Connected");
-      stompClient?.subscribe(`/thread/${id}/get`, function (msg) {
+      stompClient?.subscribe(`/thread/${id}/get`, function (msg: { body: string; }) {
         setMessages((messages) => [...messages, JSON.parse(msg.body)]);
       });
     };
-    stompClient.onStompError = function (frame) {
+    stompClient.onStompError = function (frame: { headers: { [x: string]: string; }; body: string; }) {
       console.log("Broker reported error: " + frame.headers["message"]);
       console.log("Additional details: " + frame.body);
     };
   }
-
   function disconnect() {
     if (stompClient !== null) {
       stompClient.deactivate();
@@ -81,17 +69,18 @@ export default function ThreadComponent({
 
   function sendMessage() {
     const message = {
-      sentBy: { id: user?.id } || null,
       message: value,
       isEdited: false,
+      userID: user?.id || null,
+      username: user?.username || null,
     };
-    console.log(user);
     stompClient?.publish({
       destination: `/app/thread/${id}/send`,
       body: JSON.stringify(message),
     });
     setValue("");
   }
+
   return (
     <Box
       display="flex"
@@ -100,23 +89,35 @@ export default function ThreadComponent({
       width="100%"
       height="100%"
       maxHeight="75vh"
+      padding={0}
     >
-      <Container
-        style={{
-          overflow: "auto",
-          display: "flex",
-          flexDirection: "column-reverse",
-          paddingBottom: "10px",
-          marginTop: "auto",
-          alignContent: "flex-end",
-        }}
-      >
-        <List style={{ flex: 1, alignContent: "flex-end" }}>
-          {messages.map((value: Message) => {
-            return <MessageComponent msg={value} />;
-          })}
-        </List>
-      </Container>
+      <Scrollbars style={{ height: "75vh" }} color={"#ccc"}>
+        <Container
+          style={{
+            overflowY: "auto",
+            display: "flex",
+            flexDirection: "column-reverse",
+            paddingBottom: "10px",
+            marginTop: "auto",
+            alignContent: "flex-end",
+            padding: "5px",
+            width: "100%",
+            overflowX: "clip",
+          }}
+        >
+          <List style={{ flex: 1, alignContent: "flex-end" }}>
+            {messages.map((value: MessageDto, index) => {
+              return (
+                <MessageComponent
+                  key={index.toString()}
+                  msg={value}
+                  myID={user?.id || null}
+                />
+              );
+            })}
+          </List>
+        </Container>
+      </Scrollbars>
       <TextField
         style={{ width: "100%" }}
         label="Skrifa skeyti"

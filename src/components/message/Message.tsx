@@ -1,30 +1,41 @@
 import { Box, Container, Typography } from "@mui/material";
-import { Message } from "../../types/Message";
-
+import { Message, MessageDto } from "../../types/Message";
+import { simpleFormattedDate } from "../../utils/DateUtils";
 type Props = {
-  msg: Message;
+  msg: MessageDto;
+  myID: number | null;
 };
 export function MessageComponent({
-  msg: { sentBy, message, createdAt },
+  msg: { userID, username, message, createdAt },
+  myID,
 }: Props) {
-  const myID = 1;
-  console.log(sentBy);
+  const align = userID === myID ? "end" : "start";
   return (
     <Box
-      justifyContent={sentBy?.id === myID ? "flex-end" : "flex-start"}
+      display="flex"
+      flexDirection="column"
+      alignItems={align}
       sx={{
-        backgroundColor: "blue",
+        // backgroundColor: userID === myID ? "blue" : "gray",
         margin: 1,
-        width: "50%",
-        borderRadius: 5,
-        padding: 2,
+        borderTop: 1,
+        borderColor: "gray",
+        width: "95%",
+        padding: 0,
       }}
     >
-      <Typography>{sentBy?.username || "Óþekktur notandi"}</Typography>
+      <Typography
+        color={userID === myID ? "darkcyan" : "gray"}
+        variant="caption"
+      >
+        {username || "Óþekktur notandi"}
+      </Typography>
       <Typography style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}>
         {message}
       </Typography>
-      <Typography>{createdAt}</Typography>
+      <Typography color="gray" variant="caption">
+        {simpleFormattedDate(createdAt)}
+      </Typography>
     </Box>
   );
 }
