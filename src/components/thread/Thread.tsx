@@ -19,15 +19,11 @@ import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
 import { Message } from "../../types/Message";
-<<<<<<< HEAD
 import { FakeMessages } from "../../pages/Homepage/fakecontent";
-=======
-import { FakeMessages } from "../../pages/HomePage/fakecontent";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../app/auth";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
->>>>>>> 690c5be3d79e672ceb8c902a9c80141a1e362457
 
 let stompClient: Client | null = null;
 const useStyles = makeStyles(() => ({

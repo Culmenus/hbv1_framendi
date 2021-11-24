@@ -36,37 +36,6 @@ const App = () => {
   return (
     <Provider store={store}>
       {/*<Header/> */}
-<<<<<<< HEAD
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Homepage
-              forums={mockForums}
-              NavBar={<NavigationBar href={"Home"} />}
-            />
-          }
-        />
-        <Route
-          path="/forums/:id"
-          element={<Forum isDarkTheme={true} user={tempUser} />}
-        />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/myforums"
-          element={
-            <FavoriteForums
-              forums={tempUser.favouriteForums}
-              NavBar={<NavigationBar href={"My forums"} />}
-            />
-          }
-        />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/forgotpassword" element={<Forgotpassword />} />
-        <Route path="/user" element={<Userpage />} />
-        <Route element={<NotFound />} />
-      </Routes>
-=======
       <AppNavigationContainer>
         <Routes>
           <Route
@@ -91,10 +60,10 @@ const App = () => {
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />
+          <Route path="/user" element={<Userpage />} />
           <Route element={<NotFound />} />
         </Routes>
       </AppNavigationContainer>
->>>>>>> 690c5be3d79e672ceb8c902a9c80141a1e362457
       {/*<Footer/>*/}
     </Provider>
   );
