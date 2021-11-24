@@ -1,17 +1,16 @@
 import { Box, Container, Typography } from "@mui/material";
-import { Message } from "../../types/Message";
+import { Message, MessageDto } from "../../types/Message";
 
 type Props = {
-  msg: Message;
+  msg: MessageDto;
 };
 export function MessageComponent({
-  msg: { sentBy, message, createdAt },
+  msg: { userID, username, message, createdAt },
 }: Props) {
   const myID = 1;
-  console.log(sentBy);
   return (
     <Box
-      justifyContent={sentBy?.id === myID ? "flex-end" : "flex-start"}
+      justifyContent={userID === myID ? "flex-end" : "flex-start"}
       sx={{
         backgroundColor: "blue",
         margin: 1,
@@ -20,7 +19,7 @@ export function MessageComponent({
         padding: 2,
       }}
     >
-      <Typography>{sentBy?.username || "Óþekktur notandi"}</Typography>
+      <Typography>{username || "Óþekktur notandi"}</Typography>
       <Typography style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}>
         {message}
       </Typography>

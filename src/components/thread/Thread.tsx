@@ -1,24 +1,12 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import PersonIcon from "@mui/icons-material/Person";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-import { blue } from "@mui/material/colors";
-import { Chat } from "./chat";
 import { Thread as TThread } from "../../types/Thread";
 import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
-import { Message } from "../../types/Message";
+import { Message, MessageDto } from "../../types/Message";
 import { FakeMessages } from "../../pages/HomePage/fakecontent";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../app/auth";
@@ -40,7 +28,7 @@ export default function ThreadComponent({
   thread: TThread | null;
 }) {
   const classes = useStyles();
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [messages, setMessages] = useState<Array<MessageDto>>([]);
   const [value, setValue] = useState<string>("");
   const user = useAppSelector(selectCurrentUser);
   useEffect(() => {
@@ -71,7 +59,7 @@ export default function ThreadComponent({
       console.log("Additional details: " + frame.body);
     };
   }
-
+  console.log(messages);
   function disconnect() {
     if (stompClient !== null) {
       stompClient.deactivate();
@@ -81,17 +69,18 @@ export default function ThreadComponent({
 
   function sendMessage() {
     const message = {
-      sentBy: { id: user?.id } || null,
       message: value,
       isEdited: false,
+      userID: user?.id || null,
+      username: user?.username || null,
     };
-    console.log(user);
     stompClient?.publish({
       destination: `/app/thread/${id}/send`,
       body: JSON.stringify(message),
     });
     setValue("");
   }
+
   return (
     <Box
       display="flex"
@@ -112,7 +101,7 @@ export default function ThreadComponent({
         }}
       >
         <List style={{ flex: 1, alignContent: "flex-end" }}>
-          {messages.map((value: Message) => {
+          {messages.map((value: MessageDto) => {
             return <MessageComponent msg={value} />;
           })}
         </List>

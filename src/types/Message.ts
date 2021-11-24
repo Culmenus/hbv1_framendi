@@ -7,3 +7,11 @@ export type Message = {
   createdAt?: Date;
   isEdited: boolean;
 };
+
+export type MessageDto = {
+  userID?: number;
+  username?: string;
+  message: string;
+  createdAt?: Date;
+  isEdited: boolean;
+};
