@@ -14,7 +14,6 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { User } from "./types/User";
 import { Role } from "./types/Role";
-import { mockForums } from "./pages/HomePage/fakecontent";
 import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
 
 import MiniDrawer from "./components/NavBar/Drawer";
@@ -36,7 +35,7 @@ const App = () => {
       {/*<Header/> */}
       <AppNavigationContainer>
         <Routes>
-          <Route path="/" element={<Homepage forums={mockForums} />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/forums/:id" element={<Forum isDarkTheme={true} />} />
           <Route path="/login" element={<Login />} />
           <Route

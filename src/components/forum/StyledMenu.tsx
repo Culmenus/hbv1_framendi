@@ -7,6 +7,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -67,18 +70,16 @@ export default function CustomizedMenus() {
 
   return (
     <div>
-      <Button
-        id="demo-customized-button"
-        aria-controls="demo-customized-menu"
-        aria-haspopup="true"
+      <IconButton
+        aria-label="more"
+        id="long-button"
+        aria-controls="long-menu"
         aria-expanded={open ? 'true' : undefined}
-        variant="contained"
-        disableElevation
+        aria-haspopup="true"
         onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
       >
-        <MoreHorizIcon />
-      </Button>
+        <MoreVertIcon />
+      </IconButton>
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -92,11 +93,12 @@ export default function CustomizedMenus() {
           <EditIcon />
           Edit
         </MenuItem>
+        <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleDelete} disableRipple>
           {/*trash icon here */}
+          <DeleteForeverIcon />
           Delete
         </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
       </StyledMenu>
     </div>
   );

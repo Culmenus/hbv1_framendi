@@ -7,7 +7,6 @@ import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
 import { Message, MessageDto } from "../../types/Message";
-import { FakeMessages } from "../../pages/HomePage/fakecontent";
 import { useAppSelector } from "../../app/hooks";
 import { selectCurrentUser } from "../../app/auth";
 import SockJS from "sockjs-client";
@@ -16,20 +15,13 @@ import Scrollbars from "react-custom-scrollbars-2";
 import { usePostMessageMutation } from "../../app/services/backendConnection";
 
 let stompClient: Client | null = null;
-const useStyles = makeStyles(() => ({
-  dialog: {
-    width: "48%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-}));
+
 export default function ThreadComponent({
   thread,
 }: {
   thread: TThread | null;
 }) {
-  const classes = useStyles();
+
   const [messages, setMessages] = useState<Array<MessageDto>>([]);
   useEffect(() => {
     if (thread) {

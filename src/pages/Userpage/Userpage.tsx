@@ -123,7 +123,7 @@ export default function Userpage() {
 				<CssBaseline />
 				<Box
           sx={{
-            marginTop: 8,
+            marginTop: 16,
 						marginBottom: 4,
             display: "flex",
             flexDirection: "column",

@@ -16,9 +16,9 @@ import { ForumView } from "../../components/forumView/forumView";
 import MiniDrawer from "../../components/NavBar/Drawer";
 //import NavBar from "../../components/NavBar/NavBar";
 import { Forum } from "../../types/Forum";
-import { mockForums } from "./fakecontent";
+//import { mockForums } from "./fakecontent";
 import { darkTheme } from "../PageMisc";
-const Homepage = ({ forums }: { forums: Array<Forum> }) => {
+const Homepage = () => {
   const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   //TODO loading
   if (!data || isLoading) {
