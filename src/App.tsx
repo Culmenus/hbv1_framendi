@@ -18,7 +18,8 @@ import FavoriteForums from "./pages/FavorteForumsPage/FavoriteForums";
 
 import MiniDrawer from "./components/NavBar/Drawer";
 import { useGetLoggedInQuery } from "./app/services/backendConnection";
-
+import { Box, ThemeProvider, CssBaseline } from "@mui/material";
+import { darkTheme } from "./pages/PageMisc";
 const tempUser: User = {
   id: 1,
   username: "Nati",
@@ -29,34 +30,17 @@ const tempUser: User = {
 };
 
 const App = () => {
-  const [isDarkMode, setDarkMode] = useState<boolean>(true);
-  const NavigationBar = ({ href }: { href: string }) => {
-    return <MiniDrawer href={href} setDarkMode={setDarkMode} />;
-  };
   return (
     <Provider store={store}>
       {/*<Header/> */}
       <AppNavigationContainer>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <Homepage
-                forums={mockForums}
-                NavBar={<NavigationBar href={"Home"} />}
-              />
-            }
-          />
+          <Route path="/" element={<Homepage forums={mockForums} />} />
           <Route path="/forums/:id" element={<Forum isDarkTheme={true} />} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/myforums"
-            element={
-              <FavoriteForums
-                forums={tempUser.favouriteForums || []}
-                NavBar={<NavigationBar href={"My forums"} />}
-              />
-            }
+            element={<FavoriteForums forums={tempUser.favouriteForums || []} />}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />
@@ -73,6 +57,26 @@ type NavProps = {
 };
 function AppNavigationContainer({ children }: NavProps) {
   useGetLoggedInQuery();
-  return <div>{children}</div>;
+  const [isDarkMode, setDarkMode] = useState<boolean>(true);
+  const NavigationBar = ({ href }: { href: string }) => {
+    return <MiniDrawer href={href} setDarkMode={setDarkMode} />;
+  };
+  return (
+    <div>
+      <Box display="flex" flexDirection="row">
+        <Box display="flex" flexDirection="row">
+          <NavigationBar href={"Home"} />
+        </Box>
+        <Box
+          display="flex"
+          flexDirection="row"
+          flexGrow={1}
+          justifyContent="center"
+        >
+          {children}
+        </Box>
+      </Box>
+    </div>
+  );
 }
 export default App;
