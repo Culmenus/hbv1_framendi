@@ -59,7 +59,6 @@ export default function ThreadComponent({
       console.log("Additional details: " + frame.body);
     };
   }
-  console.log(messages);
   function disconnect() {
     if (stompClient !== null) {
       stompClient.deactivate();
@@ -101,8 +100,14 @@ export default function ThreadComponent({
         }}
       >
         <List style={{ flex: 1, alignContent: "flex-end" }}>
-          {messages.map((value: MessageDto) => {
-            return <MessageComponent msg={value} myID={user?.id || null} />;
+          {messages.map((value: MessageDto, index) => {
+            return (
+              <MessageComponent
+                key={index.toString()}
+                msg={value}
+                myID={user?.id || null}
+              />
+            );
           })}
         </List>
       </Container>

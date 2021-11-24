@@ -20,11 +20,15 @@ export function MessageComponent({
         padding: 2,
       }}
     >
-      <Typography>{username || "Óþekktur notandi"}</Typography>
+      <Typography variant="caption">
+        {username || "Óþekktur notandi"}
+      </Typography>
       <Typography style={{ wordWrap: "break-word", whiteSpace: "pre-line" }}>
         {message}
       </Typography>
-      <Typography>{simpleFormattedDate(createdAt)}</Typography>
+      <Typography textAlign="end" variant="caption">
+        {simpleFormattedDate(createdAt)}
+      </Typography>
     </Box>
   );
 }
