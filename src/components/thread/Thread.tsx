@@ -14,13 +14,18 @@ import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
 import { Chat } from "./chat";
 import { Thread as TThread } from "../../types/Thread";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Box, Container, createStyles, TextField } from "@mui/material";
 import MessageComponent from "../message/Message";
 import { Message } from "../../types/Message";
 import { FakeMessages } from "../../pages/HomePage/fakecontent";
+import { useAppSelector } from "../../app/hooks";
+import { selectCurrentUser } from "../../app/auth";
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs";
 
+let stompClient: Client | null = null;
 const useStyles = makeStyles(() => ({
   dialog: {
     width: "48%",
@@ -44,14 +49,16 @@ export default function ThreadComponent({
       disconnect();
     };
   }, []);
-
+  if (!thread) {
+    return <div></div>;
+  }
+  const { id } = thread;
   function connect() {
     stompClient = new Client({
       webSocketFactory: function socketFactor() {
         return new SockJS("http://127.0.0.1:8080/thread/");
       },
     });
-
     stompClient.activate();
     stompClient.onConnect = function (frame) {
       console.log("Connected");
@@ -73,11 +80,12 @@ export default function ThreadComponent({
   }
 
   function sendMessage() {
-    const message: Message = {
-      sentBy: user ?? undefined,
+    const message = {
+      sentBy: { id: user?.id } || null,
       message: value,
       isEdited: false,
     };
+    console.log(user);
     stompClient?.publish({
       destination: `/app/thread/${id}/send`,
       body: JSON.stringify(message),
@@ -123,7 +131,7 @@ export default function ThreadComponent({
           }
         }}
         InputProps={{
-          endAdornment: <Button>send</Button>,
+          endAdornment: <Button onClick={() => sendMessage()}>send</Button>,
         }}
       />
     </Box>

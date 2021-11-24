@@ -1,9 +1,9 @@
-import { User } from './User'
+import { User } from "./User";
 
 export type Message = {
-  id: number;
+  id?: number;
   sentBy?: User;
   message: string;
   createdAt?: Date;
   isEdited: boolean;
-}
+};

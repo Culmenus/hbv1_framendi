@@ -52,7 +52,7 @@ const App = () => {
             path="/myforums"
             element={
               <FavoriteForums
-                forums={tempUser.favouriteForums}
+                forums={tempUser.favouriteForums || []}
                 NavBar={<NavigationBar href={"My forums"} />}
               />
             }
@@ -71,7 +71,7 @@ type NavProps = {
   children: JSX.Element | JSX.Element[];
 };
 function AppNavigationContainer({ children }: NavProps) {
-  const { data: user, isLoading } = useGetLoggedInQuery();
+  useGetLoggedInQuery();
   return <div>{children}</div>;
 }
 export default App;

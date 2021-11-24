@@ -1,5 +1,5 @@
-import { Forum } from './Forum';
-import { Role } from './Role';
+import { Forum } from "./Forum";
+import { Role } from "./Role";
 
 export type User = {
   id: number;
@@ -8,4 +8,4 @@ export type User = {
   email: string;
   favouriteForums: Array<Forum>;
   userRole: Role;
-}
+};

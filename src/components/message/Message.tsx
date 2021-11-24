@@ -1,4 +1,3 @@
-
 import { Box, Container, Typography } from "@mui/material";
 import { Message } from "../../types/Message";
 
@@ -9,14 +8,14 @@ export function MessageComponent({
   msg: { sentBy, message, createdAt },
 }: Props) {
   const myID = 1;
-
+  console.log(sentBy);
   return (
-    <Box 
+    <Box
       justifyContent={sentBy?.id === myID ? "flex-end" : "flex-start"}
-      sx= {{
-        backgroundColor: 'blue',
+      sx={{
+        backgroundColor: "blue",
         margin: 1,
-        width: '50%',
+        width: "50%",
         borderRadius: 5,
         padding: 2,
       }}
