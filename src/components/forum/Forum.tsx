@@ -1,5 +1,6 @@
-import { Typography } from "@mui/material";
 import { Forum as TForum } from "../../types/Forum";
+import { Button, Typography } from "@mui/material";
+
 
 import React from "react";
 
@@ -12,6 +13,7 @@ import Avatar from "@mui/material/Avatar";
 import { User } from "../../types/User";
 
 import { Thread as TThread } from "../../types/Thread";
+import CustomizedMenus from "./StyledMenu";
 
 export default function ForumComponent({
   forum,
@@ -24,6 +26,9 @@ export default function ForumComponent({
   user: User | undefined;
   bgColor: string;
 }) {
+  const createThread = () => {
+    
+  }
   return (
     <>
       {forum.threads.map((thread: TThread, i: number) => {
@@ -108,9 +113,12 @@ export default function ForumComponent({
                 }
               />
             </ListItem>
+            <CustomizedMenus />
           </List>
-        );
+        )
       })}
+      <Button onClick={createThread}>Create new thread</Button>
+
     </>
-  );
+  )
 }
