@@ -2,8 +2,6 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import Box from '@mui/material/Box';
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useEffect, useState } from "react";
-import SendIcon from '@mui/icons-material/Send';
 import Button from '@material-ui/core/Button';
 import { Dispatch, SetStateAction } from 'react';
 import { Thread, Thread as TThread } from "../../types/Thread";

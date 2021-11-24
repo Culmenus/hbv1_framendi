@@ -110,7 +110,7 @@ export default function ForumComponent({
                         fontSize: 8,
                       }}
                     >
-                      YYYY/MM/DD hh:mm:ss
+                      {thread.lastUpdated}
                     </Typography>
                   }
                 />
