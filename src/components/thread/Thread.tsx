@@ -49,13 +49,13 @@ export default function ThreadComponent({
       },
     });
     stompClient.activate();
-    stompClient.onConnect = function (frame) {
+    stompClient.onConnect = function (frame: any) {
       console.log("Connected");
-      stompClient?.subscribe(`/thread/${id}/get`, function (msg) {
+      stompClient?.subscribe(`/thread/${id}/get`, function (msg: { body: string; }) {
         setMessages((messages) => [...messages, JSON.parse(msg.body)]);
       });
     };
-    stompClient.onStompError = function (frame) {
+    stompClient.onStompError = function (frame: { headers: { [x: string]: string; }; body: string; }) {
       console.log("Broker reported error: " + frame.headers["message"]);
       console.log("Additional details: " + frame.body);
     };
