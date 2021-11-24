@@ -55,6 +55,16 @@ export const backendApi = createApi({
         method: "POST",
       }),
     }),
+    addToFavorites: builder.mutation({
+      query: ({forum, userID}: {forum: Forum, userID: number}) => ({
+        url: `/api/favorite-forums/${userID}`,
+        body: forum,
+        method: "POST",
+      }),
+      transformResponse: (response : Array<Forum>)=>{
+        return response;
+      }
+    }),
     getAllForums: builder.query<Forum[], void>({
       query: () => "/api/forum",
     }),
@@ -77,4 +87,5 @@ export const {
   useGetLoggedInQuery,
   useAddThreadMutation,
   usePostMessageMutation,
+  useAddToFavoritesMutation,
 } = backendApi;

@@ -25,7 +25,7 @@ const tempUser: User = {
   username: "Nati",
   password: "ermagerd",
   email: "nati@nati.is",
-  favouriteForums: [],
+  favoriteForums: [],
   userRole: Role.User,
 };
 
@@ -40,7 +40,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route
             path="/myforums"
-            element={<FavoriteForums forums={tempUser.favouriteForums || []} />}
+            element={<FavoriteForums forums={tempUser.favoriteForums || []} />}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />

@@ -10,6 +10,8 @@ import {
   ThemeProvider,
   CssBaseline,
 } from "@mui/material";
+import {useAppSelector} from "../../app/hooks"
+import {selectCurrentUser} from "../../app/auth"
 import React, { useState } from "react";
 import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import { ForumView } from "../../components/forumView/forumView";
@@ -20,6 +22,7 @@ import { Forum } from "../../types/Forum";
 import { darkTheme } from "../PageMisc";
 const Homepage = () => {
   const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
+  const user = useAppSelector(selectCurrentUser);
   //TODO loading
   if (!data || isLoading) {
     return <p>loading!</p>;
@@ -35,7 +38,7 @@ const Homepage = () => {
         {data.map((value) => {
           return (
             <Grid key={value.id} item xs={12} md={4} lg={3}>
-              <ForumView forum={value} />
+              <ForumView forum={value} homepage={true} />
             </Grid>
           );
         })}
