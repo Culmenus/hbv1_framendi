@@ -1,7 +1,6 @@
 import { Forum as TForum } from "../../types/Forum";
 import { Button, Typography } from "@mui/material";
 
-
 import React from "react";
 
 import List from "@mui/material/List";
@@ -26,13 +25,11 @@ export default function ForumComponent({
   user: User | undefined;
   bgColor: string;
 }) {
-  const createThread = () => {
-    
-  }
+  const createThread = () => {};
   return (
     <>
       {forum.threads.map((thread: TThread, i: number) => {
-        console.log(thread)
+        console.log(thread);
         return (
           <List
             key={i}
@@ -60,7 +57,7 @@ export default function ForumComponent({
                 }}
               >
                 <ListItemAvatar>
-                  <Avatar>{thread.user?.username[0]}</Avatar>
+                  <Avatar>{thread.creator?.username[0]}</Avatar>
                 </ListItemAvatar>
                 <ListItemText
                   primary={
@@ -71,7 +68,7 @@ export default function ForumComponent({
                         fontSize: 12,
                       }}
                     >
-                      {thread.user?.username}
+                      {thread.creator?.username}
                     </Typography>
                   }
                   secondary={
@@ -113,14 +110,12 @@ export default function ForumComponent({
                   </React.Fragment>
                 }
               />
-              {user?.id /*=== thread.user?.id */? 
-              <CustomizedMenus /> : null}
+              {user?.id /*=== thread.user?.id */ ? <CustomizedMenus /> : null}
             </ListItem>
           </List>
-        )
+        );
       })}
       <Button onClick={createThread}>Create new thread</Button>
-
     </>
-  )
+  );
 }

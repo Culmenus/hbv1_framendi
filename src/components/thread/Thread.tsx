@@ -21,7 +21,6 @@ export default function ThreadComponent({
 }: {
   thread: TThread | null;
 }) {
-
   const [messages, setMessages] = useState<Array<MessageDto>>([]);
   useEffect(() => {
     if (thread) {
@@ -125,19 +124,22 @@ export default function ThreadComponent({
           overflowX: "clip",
         }}
       >
-        <Scrollbars style={{ height: "75vh" }} color={"#ccc"}>
-          <List style={{ flex: 1, alignContent: "flex-end" }}>
-            {messages.map((value: MessageDto, index) => {
-              return (
-                <MessageComponent
-                  key={index.toString()}
-                  msg={value}
-                  myID={user?.id || null}
-                />
-              );
-            })}
-          </List>
-        </Scrollbars>
+        <List
+          style={{
+            flex: 1,
+            alignContent: "flex-end",
+          }}
+        >
+          {messages.map((value: MessageDto, index) => {
+            return (
+              <MessageComponent
+                key={index.toString()}
+                msg={value}
+                myID={user?.id || null}
+              />
+            );
+          })}
+        </List>
       </Container>
 
       <TextField
