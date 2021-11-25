@@ -10,7 +10,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import { useDeleteThreadMutation } from "../../app/services/backendConnection";
+import { Thread } from "../../types/Thread";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -58,10 +60,15 @@ const StyledMenu = styled((props: MenuProps) => (
 export default function CustomizedMenus({
   editing,
   setEditing,
+  thread,
+  deleteThreadInUI
 }: {
   editing: boolean;
   setEditing: Dispatch<SetStateAction<boolean>>;
+  thread: Thread,
+  deleteThreadInUI: Function
 }) {
+  const [deleteThread, { data: isDeleted }] = useDeleteThreadMutation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -77,6 +84,12 @@ export default function CustomizedMenus({
     setAnchorEl(null);
   };
 
+
+  useEffect(() => {
+    if(isDeleted){
+      deleteThreadInUI(thread);
+    }
+  },[isDeleted])
   return (
     <div>
       <IconButton
@@ -98,15 +111,40 @@ export default function CustomizedMenus({
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleEdit} disableRipple>
+        <MenuItem onClick={handleEdit} disableRipple
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
           <EditIcon />
           Edit
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleDelete} disableRipple>
+        <MenuItem onClick={handleDelete} disableRipple
+          sx={{
+            width: '100%',
+          }}
+        >
           {/*trash icon here */}
-          <DeleteForeverIcon />
-          Delete
+          <div
+            style={{
+              width: '100%',
+              display:'flex',
+
+              justifyContent: 'center',
+            }}
+            onClick={
+              () => {
+                if(thread.id)
+                  deleteThread({threadId: thread.id});
+              }
+            }
+          >
+            <DeleteForeverIcon />
+            Delete
+          </div>
         </MenuItem>
       </StyledMenu>
     </div>

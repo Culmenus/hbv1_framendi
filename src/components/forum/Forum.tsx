@@ -47,6 +47,10 @@ export default function ForumComponent({
   const addThread = (thread: TThread) => {
     sendThread({ thread, forumId: forum.id.toString() });
   };
+
+  const deleteThread = (thread: TThread) => {
+    setThreads(threads.filter(e => e !== thread))
+  }
   //if (creating) {
   //  return (
   //    <>
@@ -168,7 +172,12 @@ export default function ForumComponent({
                 }
               />
               {user?.id /*=== thread.user?.id */ ? (
-                <CustomizedMenus editing={editing} setEditing={setEditing} />
+                <CustomizedMenus 
+                  editing={editing} 
+                  setEditing={setEditing} 
+                  thread={thread} 
+                  deleteThreadInUI={deleteThread}
+                />
               ) : null}
             </ListItem>
           </List>
