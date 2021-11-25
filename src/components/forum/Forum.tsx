@@ -18,6 +18,7 @@ import ThreadComponent from "../thread/Thread";
 import { useAddThreadMutation } from "../../app/services/backendConnection";
 import CreateThread from "./Modal";
 import { ThemeProvider } from "@emotion/react";
+import { simpleFormattedDate } from "../../utils/DateUtils";
 
 export default function ForumComponent({
   forum,
@@ -128,7 +129,7 @@ export default function ForumComponent({
                         fontSize: 8,
                       }}
                     >
-                      {thread.lastUpdated}
+                      {simpleFormattedDate(thread.lastUpdated)}
                     </Typography>
                   }
                 />
@@ -141,6 +142,8 @@ export default function ForumComponent({
                     sx={{
                       fontWeight: "bold",
                       fontSize: 16,
+                      wordWrap: "break-word",
+                      whiteSpace: "pre-line",
                     }}
                   >
                     {thread.title}
@@ -149,7 +152,12 @@ export default function ForumComponent({
                 secondary={
                   <React.Fragment>
                     <Typography
-                      sx={{ display: "inline", flex: 2 }}
+                      sx={{
+                        display: "inline",
+                        flex: 2,
+                        wordWrap: "break-word",
+                        whiteSpace: "pre-line",
+                      }}
                       component="span"
                       variant="body2"
                       color="text.primary"

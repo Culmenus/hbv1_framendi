@@ -7,7 +7,8 @@ import { Dispatch, SetStateAction } from "react";
 import { Thread, Thread as TThread } from "../../types/Thread";
 import { ScopedCssBaseline, ThemeProvider } from "@mui/material";
 import { darkTheme } from "../../pages/PageMisc";
-
+import { useAppSelector } from "../../app/hooks";
+import { selectCurrentUser } from "../../app/auth";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapForm: {
@@ -43,6 +44,7 @@ const CreateThreadInput = ({
   description: string | undefined;
 }) => {
   const classes = useStyles(darkTheme);
+  const user = useAppSelector(selectCurrentUser);
   return (
     <div>
       <form className={classes.wrapForm} noValidate autoComplete="off">
@@ -82,6 +84,7 @@ const CreateThreadInput = ({
                   description: description,
                   messages: [],
                   lastUpdated: new Date(),
+                  creator: user ?? undefined,
                 };
                 addThread(thr);
                 setCreating(false);
