@@ -61,12 +61,18 @@ export default function CustomizedMenus({
   editing,
   setEditing,
   thread,
-  deleteThreadInUI
+  deleteThreadInUI,
+  setThreadToEdit,
+  setTitle,
+  setDescription,
 }: {
   editing: boolean;
   setEditing: Dispatch<SetStateAction<boolean>>;
   thread: Thread,
-  deleteThreadInUI: Function
+  deleteThreadInUI: Function,
+  setThreadToEdit: Function,
+  setTitle: Function,
+  setDescription: Function,
 }) {
   const [deleteThread, { data: isDeleted }] = useDeleteThreadMutation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -118,8 +124,18 @@ export default function CustomizedMenus({
             justifyContent: 'center',
           }}
         >
-          <EditIcon />
-          Edit
+          <div 
+          onClick={
+            () => {
+              setThreadToEdit(thread)
+              setTitle(thread.title)
+              setDescription(thread.description)
+              setEditing(true)
+            }
+          }>
+            <EditIcon />
+            Edit
+          </div>
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleDelete} disableRipple

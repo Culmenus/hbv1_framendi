@@ -50,6 +50,16 @@ export const backendApi = createApi({
         return response;
       },
     }),
+    updateThread: builder.mutation({
+      query: ({thread, threadId }: {thread: Thread,threadId: number }) => ({
+        url: `/api/thread/${threadId}`,
+        method: "PATCH",
+        body: thread,
+      }),
+      transformResponse: (response: Thread) => {
+        return response;
+      },
+    }),
     postMessage: builder.mutation({
       query: ({
         message,
@@ -108,4 +118,5 @@ export const {
   useAddToFavoritesMutation,
   useDeleteFromFavoritesMutation,
   useDeleteThreadMutation,
+  useUpdateThreadMutation,
 } = backendApi;
