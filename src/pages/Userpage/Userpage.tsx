@@ -107,7 +107,7 @@ function NestedList() {
   );
 }
 
-export default function Userpage() {
+export default function Userpage({NavBar}: {NavBar: JSX.Element}) {
   const navigate = useNavigate();
   const user: User | null = useAppSelector(selectCurrentUser);
   const handleLogout = () => {
@@ -116,36 +116,39 @@ export default function Userpage() {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 16,
-            marginBottom: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ width: 254, height: 254 }}></Avatar>
-          <Typography
-            sx={{ marginTop: 2, marginBottom: 1 }}
-            component="h1"
-            variant="h5"
+    <>
+      {NavBar}
+      <ThemeProvider theme={darkTheme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 16,
+              marginBottom: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            {user?.username}
-          </Typography>
-          <Button
-            sx={{ width: "100%" }}
-            variant="contained"
-            onClick={handleLogout}
-          >
-            Log out
-          </Button>
-          <NestedList />
-        </Box>
-      </Container>
-    </ThemeProvider>
+            <Avatar sx={{ width: 254, height: 254 }}></Avatar>
+            <Typography
+              sx={{ marginTop: 2, marginBottom: 1 }}
+              component="h1"
+              variant="h5"
+            >
+              {user?.username}
+            </Typography>
+            <Button
+              sx={{ width: "100%" }}
+              variant="contained"
+              onClick={handleLogout}
+            >
+              Log out
+            </Button>
+            <NestedList />
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </>
   );
 }

@@ -21,15 +21,11 @@ import { useGetLoggedInQuery } from "./app/services/backendConnection";
 import { Box, ThemeProvider, CssBaseline } from "@mui/material";
 import { darkTheme } from "./pages/PageMisc";
 import { ProtectedRoute } from "./utils/ProtectedRoute";
-const tempUser: User = {
-  id: 1,
-  username: "Nati",
-  password: "ermagerd",
-  email: "nati@nati.is",
-  favoriteForums: [],
-  userRole: Role.User,
-};
 
+
+const NavigationBar = ({ href }: { href: string }) => {
+  return <MiniDrawer href={href}/>;
+};
 const App = () => {
   return (
     <Provider store={store}>
@@ -41,7 +37,7 @@ const App = () => {
             path="/"
             element={
               <ProtectedRoute>
-                <Homepage />
+                <Homepage NavBar={<NavigationBar href={"Home"} />}/>
               </ProtectedRoute>
             }
           />
@@ -49,7 +45,7 @@ const App = () => {
             path="/forums/:id"
             element={
               <ProtectedRoute>
-                <Forum isDarkTheme={true} />
+                <Forum isDarkTheme={true} NavBar={NavigationBar} />
               </ProtectedRoute>
             }
           />
@@ -57,7 +53,7 @@ const App = () => {
             path="/user"
             element={
               <ProtectedRoute>
-                <Userpage />
+                <Userpage NavBar={<NavigationBar href={"User Profile"} />}/>
               </ProtectedRoute>
             }
           />
@@ -65,7 +61,7 @@ const App = () => {
             path="/myforums"
             element={
               <ProtectedRoute>
-                <FavoriteForums />
+                <FavoriteForums   NavBar={<NavigationBar href={"My Forums"} />} />
               </ProtectedRoute>
             }
           />
@@ -88,18 +84,16 @@ type NavProps = {
 };
 function AppNavigationContainer({ children }: NavProps) {
   const { data: user, isLoading } = useGetLoggedInQuery();
-  const [isDarkMode, setDarkMode] = useState<boolean>(true);
+
   const NavigationBar = ({ href }: { href: string }) => {
-    return <MiniDrawer href={href} setDarkMode={setDarkMode} />;
+    return <MiniDrawer href={href} />;
   };
   return (
     <div>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Box display="flex" flexDirection="row">
-          <Box display="flex" flexDirection="row">
-            <NavigationBar href={"Home"} />
-          </Box>
+          
           <Box
             display="flex"
             flexDirection="row"

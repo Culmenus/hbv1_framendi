@@ -87,16 +87,14 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer({
   href = "Home",
-  setDarkMode,
 }: {
   href: string;
-  setDarkMode: Function;
 }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const toolBars = {
     Home: { url: "/" },
-    "My forums": { url: "/myforums" },
+    "My Forums": { url: "/myforums" },
     "User Profile": { url: "/user" },
   };
   const handleDrawerOpen = () => {
@@ -202,7 +200,7 @@ export default function MiniDrawer({
                     >
                       <Box display="flex" flexDirection="row">
                         {name === "Home" ? <HomeIcon /> : null}
-                        {name === "My forums" ? <BookmarkIcon /> : null}
+                        {name === "My Forums" ? <BookmarkIcon /> : null}
                         {name === "User Profile" ? <AccountCircleIcon /> : null}
                         {open ? name : null}
                       </Box>
