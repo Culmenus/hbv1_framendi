@@ -22,7 +22,7 @@ import {
   useGetLoggedInQuery,
 } from "../../app/services/backendConnection";
 
-const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
+const Forum = ({ isDarkTheme, NavBar }: { isDarkTheme: boolean, NavBar:Function }) => {
   const { data: user, isLoading: userLoading } = useGetLoggedInQuery();
   const [selectedValue, setSelectedValue] = React.useState("");
   const [selectedThread, setSelectedThread] = useState<TThread | null>(null);
@@ -50,42 +50,45 @@ const Forum = ({ isDarkTheme }: { isDarkTheme: boolean }) => {
     }
   }, [data, isDarkTheme]);
   return (
-    <Container
-      component="main"
-      style={{
-        marginTop: "100px",
-      }}
-    >
-      <Typography variant="h5">{forum?.name}</Typography>
-      <Grid container spacing={5}>
-        <Grid item xs={4}>
-          <Scrollbars style={{ height: "80vh" }}>
-            <Box
-              sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              {forum ? (
-                <ForumComponent
-                  forum={forum}
-                  setSelectedThread={setSelectedThread}
-                  user={user}
-                  bgColor={bgColor}
-                />
-              ) : null}
-            </Box>
-          </Scrollbars>
-        </Grid>
-        {selectedThread ? (
-          <Grid item xs={8}>
-            <ThreadComponent thread={selectedThread} />
+    <>
+      {<NavBar href={forum?.courseId}/>}
+      <Container
+        component="main"
+        style={{
+          marginTop: "100px",
+        }}
+      >
+        <Typography variant="h5">{forum?.name}</Typography>
+        <Grid container spacing={5}>
+          <Grid item xs={6} md={4}>
+            <Scrollbars style={{ height: "80vh" }}>
+              <Box
+                sx={{
+                  marginTop: 8,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                {forum ? (
+                  <ForumComponent
+                    forum={forum}
+                    setSelectedThread={setSelectedThread}
+                    user={user}
+                    bgColor={bgColor}
+                  />
+                ) : null}
+              </Box>
+            </Scrollbars>
           </Grid>
-        ) : null}
-      </Grid>
-    </Container>
+          {selectedThread ? (
+            <Grid item xs={6} md={8}>
+              <ThreadComponent thread={selectedThread} />
+            </Grid>
+          ) : null}
+        </Grid>
+      </Container>
+    </>
   );
 };
 

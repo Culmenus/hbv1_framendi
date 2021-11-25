@@ -10,16 +10,16 @@ import { User } from "../../types/User";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 
-import * as React from 'react';
-import ListSubheader from '@mui/material/ListSubheader';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import * as React from "react";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -37,11 +37,7 @@ function UpdatePassword() {
             alignItems: "center",
           }}
         >
-          <Box
-            component="form"
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -52,7 +48,7 @@ function UpdatePassword() {
               id="password"
               autoComplete="current-password"
             />
-						<TextField
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -78,8 +74,8 @@ function UpdatePassword() {
 }
 
 function NestedList() {
-	const [open, setOpen] = React.useState(true);
-	const user: User | null = useAppSelector(selectCurrentUser);
+  const [open, setOpen] = React.useState(false);
+  const user: User | null = useAppSelector(selectCurrentUser);
 
   const handleClick = () => {
     setOpen(!open);
@@ -87,13 +83,14 @@ function NestedList() {
 
   return (
     <List
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          
-        </ListSubheader>
+        <ListSubheader
+          component="div"
+          id="nested-list-subheader"
+        ></ListSubheader>
       }
     >
       <ListItemButton onClick={handleClick}>
@@ -104,41 +101,54 @@ function NestedList() {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-				<UpdatePassword />
+        <UpdatePassword />
       </Collapse>
     </List>
   );
 }
 
+export default function Userpage({NavBar}: {NavBar: JSX.Element}) {
+  const navigate = useNavigate();
+  const user: User | null = useAppSelector(selectCurrentUser);
+  const handleLogout = () => {
+    localStorage.removeItem("appToken");
+    navigate("/login");
+  };
 
-export default function Userpage() {
-	const navigate = useNavigate();
-	const user: User | null = useAppSelector(selectCurrentUser);
-	console.log(user);
-
-
-	return (
-		<ThemeProvider theme={darkTheme}>
-			<Container component="main" maxWidth="xs">
-				<CssBaseline />
-				<Box
-          sx={{
-            marginTop: 16,
-						marginBottom: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-					<Avatar sx={{ width: 254, height: 254 }}>
-
-					</Avatar>
-					<Typography sx={{marginTop:2, marginBottom:1}}component="h1" variant="h5">
-            {user?.username}
-          </Typography>
-					<NestedList/>
-				</Box>
-			</Container>
-		</ThemeProvider>
-	)
+  return (
+    <>
+      {NavBar}
+      <ThemeProvider theme={darkTheme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 16,
+              marginBottom: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ width: 254, height: 254 }}></Avatar>
+            <Typography
+              sx={{ marginTop: 2, marginBottom: 1 }}
+              component="h1"
+              variant="h5"
+            >
+              {user?.username}
+            </Typography>
+            <Button
+              sx={{ width: "100%" }}
+              variant="contained"
+              onClick={handleLogout}
+            >
+              Log out
+            </Button>
+            <NestedList />
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </>
+  );
 }

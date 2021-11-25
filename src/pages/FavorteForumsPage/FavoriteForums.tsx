@@ -15,14 +15,22 @@ import { useGetAllForumsQuery } from "../../app/services/backendConnection";
 import ForumList from "../../components/forumList/forumList";
 import { ForumView } from "../../components/forumView/forumView";
 import { Forum } from "../../types/Forum";
-const FavoriteForums = () => {
+const FavoriteForums = ({NavBar}: {NavBar: JSX.Element}) => {
   const user = useAppSelector(selectCurrentUser);
 
   if(user) {
-    console.log(user);
-    return <ForumList data={user.favoriteForums} />
+    return(
+      <>
+        {NavBar}
+        <ForumList data={user.favoriteForums} />
+      </>
+    )
   }
-  return <> </>
+  return (
+    <>
+      {NavBar} 
+    </>
+  )
 };
 
 export default FavoriteForums;

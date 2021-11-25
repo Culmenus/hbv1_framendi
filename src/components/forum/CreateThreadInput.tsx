@@ -5,7 +5,10 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { Dispatch, SetStateAction } from "react";
 import { Thread, Thread as TThread } from "../../types/Thread";
-
+import { ScopedCssBaseline, ThemeProvider } from "@mui/material";
+import { darkTheme } from "../../pages/PageMisc";
+import { useAppSelector } from "../../app/hooks";
+import { selectCurrentUser } from "../../app/auth";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapForm: {
@@ -30,7 +33,6 @@ const CreateThreadInput = ({
   setDescription,
   setCreating,
   addThread,
-  setOpen,
   title,
   description,
 }: {
@@ -38,57 +40,62 @@ const CreateThreadInput = ({
   setDescription: Dispatch<SetStateAction<string | undefined>>;
   setCreating: Dispatch<SetStateAction<boolean>>;
   addThread: (thread: Thread) => void;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string | undefined;
   description: string | undefined;
 }) => {
-  const classes = useStyles();
+  const classes = useStyles(darkTheme);
+  const user = useAppSelector(selectCurrentUser);
   return (
-    <>
+    <div>
       <form className={classes.wrapForm} noValidate autoComplete="off">
-        <Box>
-          <TextField
-            id="thread-title"
-            label="Thread title"
-            className={classes.wrapText}
-            margin="normal"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-          <TextField
-            id="thread-description"
-            label="Thread description"
-            className={classes.wrapText}
-            margin="normal"
-            value={description}
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => {
-              let thr: TThread = {
-                id: undefined,
-                title: title,
-                description: description,
-                messages: [],
-                lastUpdated: new Date(),
-              };
-              addThread(thr);
-              setCreating(false);
-              setOpen(false);
-            }}
-          >
-            Confirm
-          </Button>
-        </Box>
+        <ThemeProvider theme={darkTheme}>
+          <ScopedCssBaseline />
+          <Box>
+            <TextField
+              variant="filled"
+              label="Thread title"
+              // className={classes.wrapText}
+              style={{ width: "90%" }}
+              margin="normal"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
+            <TextField
+              variant="filled"
+              label="Thread description"
+              // className={classes.wrapText}
+              style={{ width: "90%" }}
+              margin="normal"
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={() => {
+                let thr: TThread = {
+                  id: undefined,
+                  title: title,
+                  description: description,
+                  messages: [],
+                  lastUpdated: new Date(),
+                  creator: user ?? undefined,
+                };
+                addThread(thr);
+                setCreating(false);
+              }}
+            >
+              Confirm
+            </Button>
+          </Box>
+        </ThemeProvider>
       </form>
-    </>
+    </div>
   );
 };
 

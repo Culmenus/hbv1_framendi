@@ -13,8 +13,14 @@ import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
 import Scrollbars from "react-custom-scrollbars-2";
 import { usePostMessageMutation } from "../../app/services/backendConnection";
+import { deepPurple } from "@mui/material/colors";
 
 let stompClient: Client | null = null;
+const styles = {
+  input: {
+    color: "white",
+  },
+};
 
 export default function ThreadComponent({
   thread,
@@ -37,7 +43,7 @@ export default function ThreadComponent({
         })
       );
     }
-  }, []);
+  }, [thread]);
   console.log(messages);
   const [value, setValue] = useState<string>("");
   const user = useAppSelector(selectCurrentUser);
@@ -47,7 +53,7 @@ export default function ThreadComponent({
     return () => {
       disconnect();
     };
-  }, []);
+  }, [thread]);
   if (!thread) {
     return <div></div>;
   }
@@ -90,6 +96,7 @@ export default function ThreadComponent({
       userID: user?.id || undefined,
       username: user?.username || undefined,
     };
+    console.log(id);
     stompClient?.publish({
       destination: `/app/thread/${id}/send`,
       body: JSON.stringify(message),
@@ -146,6 +153,7 @@ export default function ThreadComponent({
         style={{ width: "100%" }}
         label="Skrifa skeyti"
         variant="standard"
+        sx={{ color: "#fff" }}
         value={value}
         onChange={(e) => {
           setValue(e.target.value);
@@ -155,7 +163,9 @@ export default function ThreadComponent({
             sendMessage();
           }
         }}
+        // InputLabelProps={{ style: { color: deepPurple[500] } }}
         InputProps={{
+          style: { color: "white" },
           endAdornment: <Button onClick={() => sendMessage()}>send</Button>,
         }}
       />

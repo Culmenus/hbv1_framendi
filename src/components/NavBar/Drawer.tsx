@@ -12,7 +12,7 @@ import { Box, Link, Toolbar, Typography } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { ThemeToggleButton } from "./ThemeButton";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { deepPurple } from "@mui/material/colors";
 const drawerWidth = 240;
 
@@ -87,17 +87,15 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MiniDrawer({
   href = "Home",
-  setDarkMode,
 }: {
   href: string;
-  setDarkMode: Function;
 }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const toolBars = {
     Home: { url: "/" },
-    "My forums": { url: "myforums" },
-    "User Profile": {url: "user"}
+    "My Forums": { url: "/myforums" },
+    "User Profile": { url: "/user" },
   };
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -202,8 +200,8 @@ export default function MiniDrawer({
                     >
                       <Box display="flex" flexDirection="row">
                         {name === "Home" ? <HomeIcon /> : null}
-                        {name === "My forums" ? <BookmarkIcon /> : null}
-                        {name === "User Profile" ? <AccountCircleIcon /> : null} 
+                        {name === "My Forums" ? <BookmarkIcon /> : null}
+                        {name === "User Profile" ? <AccountCircleIcon /> : null}
                         {open ? name : null}
                       </Box>
                     </Typography>

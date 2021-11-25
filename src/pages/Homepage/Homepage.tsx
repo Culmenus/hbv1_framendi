@@ -21,7 +21,7 @@ import { Forum } from "../../types/Forum";
 //import { mockForums } from "./fakecontent";
 import { darkTheme } from "../PageMisc";
 import ForumList from "../../components/forumList/forumList";
-const Homepage = () => {
+const Homepage = ({NavBar}: {NavBar: JSX.Element}) => {
   const { data, isLoading, isError, isSuccess } = useGetAllForumsQuery();
   const user = useAppSelector(selectCurrentUser);
   //TODO loading
@@ -35,7 +35,10 @@ const Homepage = () => {
   //const [data, setData] = useState<Array<Forum>>(forums);
 
   return (
-    <ForumList  data={data}/>
+    <>
+      {NavBar}
+      <ForumList  data={data}/>
+    </>
   );
 };
 

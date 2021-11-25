@@ -1,5 +1,5 @@
 import { Forum as TForum } from "../../types/Forum";
-import { Button, Typography } from "@mui/material";
+import { Button, Container, CssBaseline, Typography } from "@mui/material";
 
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,8 @@ import CustomizedMenus from "./StyledMenu";
 import ThreadComponent from "../thread/Thread";
 import { useAddThreadMutation } from "../../app/services/backendConnection";
 import CreateThread from "./Modal";
+import { ThemeProvider } from "@emotion/react";
+import { simpleFormattedDate } from "../../utils/DateUtils";
 
 export default function ForumComponent({
   forum,
@@ -45,25 +47,31 @@ export default function ForumComponent({
   const addThread = (thread: TThread) => {
     sendThread({ thread, forumId: forum.id.toString() });
   };
-  const createThread = () => {
-    setCreating(true);
-  };
-  if (creating) {
-    return (
-      <>
-        <CreateThread
-          setTitle={setTitle}
-          setDescription={setDescription}
-          setCreating={setCreating}
-          addThread={addThread}
-          title={title}
-          description={description}
-        />
-      </>
-    );
-  }
+  //if (creating) {
+  //  return (
+  //    <>
+  //      <CreateThread
+  //        setTitle={setTitle}
+  //        setDescription={setDescription}
+  //        setCreating={setCreating}
+  //        addThread={addThread}
+  //        title={title}
+  //        description={description}
+  //      />
+  //    </>
+  //  );
+  //}
   return (
-    <>
+    <Container>
+      <CreateThread
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setCreating={setCreating}
+        creating={creating}
+        addThread={addThread}
+        title={title}
+        description={description}
+      />
       <Button
         onClick={() => {
           setCreating(true);
@@ -121,7 +129,7 @@ export default function ForumComponent({
                         fontSize: 8,
                       }}
                     >
-                      {thread.lastUpdated}
+                      {simpleFormattedDate(thread.lastUpdated)}
                     </Typography>
                   }
                 />
@@ -134,6 +142,8 @@ export default function ForumComponent({
                     sx={{
                       fontWeight: "bold",
                       fontSize: 16,
+                      wordWrap: "break-word",
+                      whiteSpace: "pre-line",
                     }}
                   >
                     {thread.title}
@@ -142,7 +152,12 @@ export default function ForumComponent({
                 secondary={
                   <React.Fragment>
                     <Typography
-                      sx={{ display: "inline", flex: 2 }}
+                      sx={{
+                        display: "inline",
+                        flex: 2,
+                        wordWrap: "break-word",
+                        whiteSpace: "pre-line",
+                      }}
                       component="span"
                       variant="body2"
                       color="text.primary"
@@ -159,6 +174,6 @@ export default function ForumComponent({
           </List>
         );
       })}
-    </>
+    </Container>
   );
 }

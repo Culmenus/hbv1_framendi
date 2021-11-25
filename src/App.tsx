@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Forum from "./pages/ForumsPage/Forums";
 import Homepage from "./pages/HomePage/Homepage";
 import Userpage from "./pages/Userpage/Userpage";
@@ -20,31 +20,57 @@ import MiniDrawer from "./components/NavBar/Drawer";
 import { useGetLoggedInQuery } from "./app/services/backendConnection";
 import { Box, ThemeProvider, CssBaseline } from "@mui/material";
 import { darkTheme } from "./pages/PageMisc";
-const tempUser: User = {
-  id: 1,
-  username: "Nati",
-  password: "ermagerd",
-  email: "nati@nati.is",
-  favoriteForums: [],
-  userRole: Role.User,
-};
+import { ProtectedRoute } from "./utils/ProtectedRoute";
 
+
+const NavigationBar = ({ href }: { href: string }) => {
+  return <MiniDrawer href={href}/>;
+};
 const App = () => {
   return (
     <Provider store={store}>
       {/*<Header/> */}
       <AppNavigationContainer>
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/forums/:id" element={<Forum isDarkTheme={true} />} />
-          <Route path="/login" element={<Login />} />
+          {/* Private routes */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Homepage NavBar={<NavigationBar href={"Home"} />}/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/forums/:id"
+            element={
+              <ProtectedRoute>
+                <Forum isDarkTheme={true} NavBar={NavigationBar} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user"
+            element={
+              <ProtectedRoute>
+                <Userpage NavBar={<NavigationBar href={"User Profile"} />}/>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/myforums"
-            element={<FavoriteForums />}
+            element={
+              <ProtectedRoute>
+                <FavoriteForums   NavBar={<NavigationBar href={"My Forums"} />} />
+              </ProtectedRoute>
+            }
           />
+
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgotpassword" element={<Forgotpassword />} />
-          <Route path="/user" element={<Userpage />} />
+
           <Route element={<NotFound />} />
         </Routes>
       </AppNavigationContainer>
@@ -57,19 +83,17 @@ type NavProps = {
   children: JSX.Element | JSX.Element[];
 };
 function AppNavigationContainer({ children }: NavProps) {
-  useGetLoggedInQuery();
-  const [isDarkMode, setDarkMode] = useState<boolean>(true);
+  const { data: user, isLoading } = useGetLoggedInQuery();
+
   const NavigationBar = ({ href }: { href: string }) => {
-    return <MiniDrawer href={href} setDarkMode={setDarkMode} />;
+    return <MiniDrawer href={href} />;
   };
   return (
     <div>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <Box display="flex" flexDirection="row">
-          <Box display="flex" flexDirection="row">
-            <NavigationBar href={"Home"} />
-          </Box>
+          
           <Box
             display="flex"
             flexDirection="row"
