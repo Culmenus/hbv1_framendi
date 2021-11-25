@@ -33,6 +33,7 @@ const Homepage = ({NavBar}: {NavBar: JSX.Element}) => {
     return <p>log in?</p>;
   }
   //const [data, setData] = useState<Array<Forum>>(forums);
+
   return (
     <>
       {NavBar}
