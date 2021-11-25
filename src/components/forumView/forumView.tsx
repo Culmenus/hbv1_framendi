@@ -74,9 +74,9 @@ export function ForumView({ forum }: Props) {
               setValue(value);
               if (value && user) {
                 //send to backend
-                addToFavorites({ forum, userID: user.id });
+                // addToFavorites({ forum, userID: user.id });
               } else if (user) {
-                deleteFromFavorites({ forum, userID: user.id });
+                // deleteFromFavorites({ forum, userID: user.id });
               }
             }}
           />
