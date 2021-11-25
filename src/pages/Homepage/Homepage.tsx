@@ -33,6 +33,7 @@ const Homepage = () => {
     return <p>log in?</p>;
   }
   //const [data, setData] = useState<Array<Forum>>(forums);
+
   return (
     <ForumList  data={data}/>
   );

@@ -17,12 +17,21 @@ export function ForumView({ forum }: Props) {
   const [favoriteForums, setfavoriteForums] = useState<Array<Forum>>([]);
   const [addToFavorites, {data: newFavs}] = useAddToFavoritesMutation();
   const [deleteFromFavorites, {data: deletedFavs}] = useDeleteFromFavoritesMutation();
+  const [value, setValue] = useState<number | null>(
+    favoriteForums.some((value) => value.courseId === forum.courseId) ? 1 : 0
+  )
   // const [user, setUser] = useState<user>()
   useEffect(()=> {
     if(user){
       setfavoriteForums(user.favoriteForums)
+  
     }
-  }, [user, setfavoriteForums])
+
+  }, [user])
+  useEffect(() => {
+    setValue(favoriteForums.some((value) => value.courseId === forum.courseId) ? 1 : 0)
+
+  },[favoriteForums, forum.courseId])
   useEffect(()=> {
     if(newFavs){
       setfavoriteForums(newFavs);
@@ -30,10 +39,8 @@ export function ForumView({ forum }: Props) {
     if(deletedFavs){
       setfavoriteForums(deletedFavs)
     }
-  },[newFavs, setfavoriteForums,favoriteForums,deletedFavs]);
-  const [value, setValue] = useState<number | null>(
-    favoriteForums?.indexOf(forum) ? 0 : 1
-  )
+  },[newFavs, setfavoriteForums, favoriteForums, deletedFavs]);
+  
 
   return (
     <Link href={`forums/${forum.id}`} underline="hover">
