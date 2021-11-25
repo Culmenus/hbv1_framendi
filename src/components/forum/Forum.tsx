@@ -171,7 +171,7 @@ export default function ForumComponent({
                   </React.Fragment>
                 }
               />
-              {user?.id /*=== thread.user?.id */ ? (
+              {user?.id === thread.user?.id  ? (
                 <CustomizedMenus 
                   editing={editing} 
                   setEditing={setEditing} 
