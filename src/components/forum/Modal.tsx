@@ -10,18 +10,26 @@ type Props = {
   setDescription: Dispatch<SetStateAction<string | undefined>>;
   creating: boolean;
   setCreating: Dispatch<SetStateAction<boolean>>;
+  setEditing: Dispatch<SetStateAction<boolean>>;
   addThread: (thread: Thread) => void;
   title: string | undefined;
   description: string | undefined;
+  thread: Thread | null,
+  editing: boolean,
+  updateThread: Function,
 };
 export default function CreateThread({
   setTitle,
   setDescription,
   setCreating,
+  setEditing,
   creating,
   addThread,
   title,
   description,
+  thread,
+  editing,
+  updateThread,
 }: Props) {
   const handleOpen = () => {
     setCreating(true);
@@ -32,7 +40,7 @@ export default function CreateThread({
 
   return (
     <Modal
-      open={creating}
+      open={creating || editing}
       onClose={handleClose}
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
@@ -54,14 +62,19 @@ export default function CreateThread({
           pb: 3,
         }}
       >
-        <h2 id="parent-modal-title">Create new thread</h2>
+        <h2 id="parent-modal-title">{
+          editing ? `Editing ${thread?.title}` : "Create new thread" }</h2>
         <CreateThreadInput
           setTitle={setTitle}
           setDescription={setDescription}
           setCreating={setCreating}
+          setEditing={setEditing}
           addThread={addThread}
           title={title}
           description={description}
+          threadToEdit={thread}
+          editing={editing}
+          updateThread={updateThread}
         />
       </Box>
     </Modal>
