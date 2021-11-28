@@ -41,6 +41,25 @@ export const backendApi = createApi({
         return response;
       },
     }),
+    deleteThread: builder.mutation({
+      query: ({ threadId }: {threadId: number }) => ({
+        url: `/api/thread/${threadId}`,
+        method: "DELETE",
+      }),
+      transformResponse: (response: boolean) => {
+        return response;
+      },
+    }),
+    updateThread: builder.mutation({
+      query: ({thread, threadId }: {thread: Thread,threadId: number }) => ({
+        url: `/api/thread/${threadId}`,
+        method: "PATCH",
+        body: thread,
+      }),
+      transformResponse: (response: Thread) => {
+        return response;
+      },
+    }),
     postMessage: builder.mutation({
       query: ({
         message,
@@ -98,4 +117,6 @@ export const {
   usePostMessageMutation,
   useAddToFavoritesMutation,
   useDeleteFromFavoritesMutation,
+  useDeleteThreadMutation,
+  useUpdateThreadMutation,
 } = backendApi;

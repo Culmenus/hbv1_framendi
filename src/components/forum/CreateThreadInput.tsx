@@ -32,19 +32,28 @@ const CreateThreadInput = ({
   setTitle,
   setDescription,
   setCreating,
+  setEditing,
   addThread,
   title,
   description,
+  threadToEdit,
+  editing,
+  updateThread,
 }: {
   setTitle: Dispatch<SetStateAction<string | undefined>>;
   setDescription: Dispatch<SetStateAction<string | undefined>>;
   setCreating: Dispatch<SetStateAction<boolean>>;
+  setEditing: Dispatch<SetStateAction<boolean>>;
   addThread: (thread: Thread) => void;
   title: string | undefined;
   description: string | undefined;
+  threadToEdit: Thread | null;
+  editing: boolean,
+  updateThread: Function,
 }) => {
   const classes = useStyles(darkTheme);
   const user = useAppSelector(selectCurrentUser);
+
   return (
     <div>
       <form className={classes.wrapForm} noValidate autoComplete="off">
@@ -82,12 +91,20 @@ const CreateThreadInput = ({
                   id: undefined,
                   title: title,
                   description: description,
-                  messages: [],
+                  messages: editing && threadToEdit?.messages? threadToEdit?.messages : [],
                   lastUpdated: new Date(),
                   creator: user ?? undefined,
                 };
-                addThread(thr);
+
+                //update thread if edit
+
+                if(editing && threadToEdit){
+                  updateThread({thread: thr, threadId: threadToEdit.id})
+                }else{
+                  addThread(thr);
+                }
                 setCreating(false);
+                setEditing(false);
               }}
             >
               Confirm

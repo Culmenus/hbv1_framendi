@@ -15,7 +15,7 @@ import * as React from "react";
 import { Thread as TThread } from "../../types/Thread";
 import CustomizedMenus from "./StyledMenu";
 import ThreadComponent from "../thread/Thread";
-import { useAddThreadMutation } from "../../app/services/backendConnection";
+import { useAddThreadMutation, useUpdateThreadMutation } from "../../app/services/backendConnection";
 import CreateThread from "./Modal";
 import { ThemeProvider } from "@emotion/react";
 import { simpleFormattedDate } from "../../utils/DateUtils";
@@ -36,8 +36,10 @@ export default function ForumComponent({
   const [threads, setThreads] = useState<Array<TThread>>(forum.threads);
   const [sendThread, { data: newThread, isLoading, isSuccess }] =
     useAddThreadMutation();
+    const [updateThread, { data: updatedThread}] = useUpdateThreadMutation();
   const [title, setTitle] = useState<string | undefined>("");
   const [description, setDescription] = useState<string | undefined>("");
+  const [threadToEdit, setThreadToEdit] = useState<TThread | null>(null)
   React.useEffect(() => {
     if (newThread) {
       setThreads((threads) => [...threads, newThread]);
@@ -47,6 +49,16 @@ export default function ForumComponent({
   const addThread = (thread: TThread) => {
     sendThread({ thread, forumId: forum.id.toString() });
   };
+
+  useEffect(() => {
+    if(updatedThread){
+      setThreads(threads.filter(e => e.id !== updatedThread.id))
+      setThreads((threads) => [...threads, updatedThread]);
+    }
+  },[updatedThread])
+  const deleteThread = (thread: TThread) => {
+    setThreads(threads.filter(e => e !== thread))
+  }
   //if (creating) {
   //  return (
   //    <>
@@ -64,13 +76,17 @@ export default function ForumComponent({
   return (
     <Container>
       <CreateThread
-        setTitle={setTitle}
-        setDescription={setDescription}
+        setTitle={ setTitle}
+        setDescription={ setDescription}
         setCreating={setCreating}
+        setEditing={setEditing}
         creating={creating}
         addThread={addThread}
         title={title}
         description={description}
+        thread={threadToEdit}
+        editing={editing}
+        updateThread={updateThread}
       />
       <Button
         onClick={() => {
@@ -167,8 +183,16 @@ export default function ForumComponent({
                   </React.Fragment>
                 }
               />
-              {user?.id /*=== thread.user?.id */ ? (
-                <CustomizedMenus editing={editing} setEditing={setEditing} />
+              {user?.id === thread.creator?.id  ? (
+                <CustomizedMenus 
+                  editing={editing} 
+                  setEditing={setEditing} 
+                  thread={thread} 
+                  deleteThreadInUI={deleteThread}
+                  setThreadToEdit={setThreadToEdit}
+                  setTitle={setTitle}
+                  setDescription={setDescription}
+                />
               ) : null}
             </ListItem>
           </List>
